@@ -5,10 +5,10 @@
         <!-- <el-button v-waves class="filter-item" type="primary" icon="el-icon-download" @click="downloads">打印</el-button>s -->
         <el-input v-model="listQuery.name" placeholder="姓名" style="width: 150px;" class="filter-item" />
         <el-input v-model="listQuery.mobileNo" placeholder="手机" style="width: 200px;" class="filter-item" />
-        <el-input v-model="listQuery.idNo" placeholder="身份证号" style="width: 200px;" class="filter-item" />
-        <el-input v-model="listQuery.applyId" placeholder="开户ID" style="width: 200px;" class="filter-item" />
+        <el-input v-model="listQuery.idNo" placeholder="地区运营商" style="width: 200px;" class="filter-item" />
+        <el-input v-model="listQuery.applyId" placeholder="归属代理商" style="width: 200px;" class="filter-item" />
 
-        <el-select v-if="['table'].includes(re)" v-model="listQuery.openStatusList" @change="fetchData" placeholder="开户状态"
+        <el-select v-if="['table'].includes(re)" v-model="listQuery.openStatusList" @change="fetchData" placeholder="卡片状态"
           style="width: 200px" class="filter-item" clearable multiple collapse-tags>
           <el-option v-for="item in openStatus" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
@@ -42,55 +42,36 @@
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
 
       <!-- <el-table-column align="center" type="selection" width="70" /> -->
-      <el-table-column align="center" label="开户ID">
-        <template slot-scope="scope">{{ scope.row.applyId }}</template>
+      <el-table-column align="center" label="ICCIDID">
+        <template slot-scope="scope">{{ scope.row.id }}</template>
       </el-table-column>
 
-      <el-table-column label="姓名" align="center">
-        <template slot-scope="scope">{{ scope.row.idName }}</template>
+      <el-table-column label="业务号码" align="center">
+        <template slot-scope="scope">{{ scope.row.business_code }}</template>
       </el-table-column>
 
-      <el-table-column label="手机号" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.mobileNo }}</template>
+      <el-table-column label="划拨状态" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
       </el-table-column>
 
-      <el-table-column v-if="['table', 'cs', 'settle', 'cs_re'].includes(re)" label="认证方式" width="100" align="center">
-        <template slot-scope="scope">{{ scope.row.authMethodDesc }}</template>
+      <el-table-column label="卡片状态" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
       </el-table-column>
 
-      <el-table-column v-if="['table', 'serv', 'ca', 'lr_pre', 'ro_pre', 'lr', 'ro'].includes(re)" label="开户地区" width="100"
-        align="center">
-        <template slot-scope="scope">{{ scope.row.idAreaDesc }}</template>
+      <el-table-column label="实名状态" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
       </el-table-column>
 
-      <el-table-column v-if="['cs', 'settle', 'cs_re'].includes(re)" align="center" label="转账金额" width="140">
-        <template slot-scope="scope"><span>{{ scope.row.transferCheck&&scope.row.transferCheck.money || '——' }}</span></template>
+      <el-table-column label="激活时间" width="200" align="center">
+        <template slot-scope="scope">{{ scope.row.first_active_time }}</template>
       </el-table-column>
 
-      <el-table-column v-if="['cs', 'settle', 'cs_re'].includes(re)" label="操作员" align="center" width="160" class-name="small-padding fixed-width">
-        <template slot-scope="scope">{{ scope.row.operatorRealname }}</template>
+      <el-table-column label="已用流量" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.used_flow_size }}</template>
       </el-table-column>
 
-      <el-table-column align="center" label="申请时间" width="180">
-        <template slot-scope="scope"><span>{{ scope.row.submitTime || '——' }}</span></template>
-      </el-table-column>
-
-      <el-table-column v-if="['table'].includes(re)" align="center" label="开户成功时间" width="180">
-        <template slot-scope="scope"><span>{{ scope.row.openingTime || '——' }}</span></template>
-      </el-table-column>
-
-      <el-table-column v-if="['cs', 'settle', 'cs_re'].includes(re)" align="center" label="操作时间" width="180">
-        <template slot-scope="scope"><span>{{ scope.row.reverseTime || '——' }}</span></template>
-      </el-table-column>
-
-      <el-table-column v-if="['cs', 'settle', 'cs_re'].includes(re)" align="center" label="转账时间" width="180">
-        <template slot-scope="scope"><span>{{ scope.row.transferCheck&&scope.row.transferCheck.transferDate || '——' }}</span></template>
-      </el-table-column>
-
-      <el-table-column v-if="['table', 'ca', 'op'].includes(re)" class-name="status-col" label="开户状态" width="120" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="statusFilter(scope.row.openStatus).type">{{ statusFilter(scope.row.openStatus).label }}</el-tag>
-        </template>
+      <el-table-column label="归属代理商" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.company_name }}</template>
       </el-table-column>
 
       <el-table-column v-if="['cs_re'].includes(re)" align="center" label="审核状态" width="180">
@@ -100,13 +81,7 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column v-if="['cs', 'settle', 'cs_re'].includes(re)" label="凭证" align="center" width="160" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button class="btn" type="" size="mini" @click="$router.push(`/audit/info?id=${scope.row.applyId}`)">点击查看</el-button>
-        </template>
-      </el-table-column> -->
-
-      <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
+      <!-- <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-if="['table'].includes(re)" class="btn" type="primary" size="mini" @click="$router.push(`/openacc/info?id=${scope.row.applyId}&re=${re}`)">查看</el-button>
           <el-button v-if="['table'].includes(re)" class="btn" type="" size="mini" @click="$router.push(`/openacc/log?id=${scope.row.applyId}&re=${re}`)">日志</el-button>
@@ -121,7 +96,7 @@
             <span v-else>——</span>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column v-if="['table', 'serv', 'ca', 'lr_pre', 'ro_pre', 'lr', 'ro'].includes(re)" label="资料导出" align="center"
         width="220" class-name="small-padding fixed-width">
@@ -136,8 +111,7 @@
 
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.pageNo" :limit.sync="listQuery.pageSize"
-      @pagination="fetchData" />
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="fetchData" />
 
   </div>
 </template>
@@ -174,8 +148,8 @@
         total: 0,
         listQuery: {
 
-          "pageNo": 1, // 当前页码
-          "pageSize": 20, // 每页大小
+          "page": 1, // 当前页码
+          "size": 20, // 每页大小
           "name": "", // 姓名(可选查询)
           "mobileNo": "", // 手机号码(可选查询)
           "idNo": "", // 身份证号(可选查询)
@@ -243,8 +217,8 @@
 
         this.listLoading = true
         const res = await getCardList(this.listQuery, this.re)
-        this.total = res.result.totalElement
-        this.list = res.result.list
+        this.total = res.data.total
+        this.list = res.data.list
         setTimeout(() => {
           this.listLoading = false
         }, 500)
@@ -255,5 +229,9 @@
 <style scoped lang="scss">
   .btn {
     // margin: 5px;
+  }
+
+  .filter-container {
+    padding-bottom: 10px;
   }
 </style>
