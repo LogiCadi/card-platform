@@ -31,31 +31,31 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
 
-{
-  path: '/404',
-  component: () => import('@/views/404'),
-  hidden: true
-},
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 
-{
-  path: '/',
-  component: Layout,
-  redirect: '/dashboard',
-  children: [{
-    path: 'dashboard',
-    name: 'Dashboard',
-    component: () => import('@/views/dashboard/index'),
-    meta: {
-      title: '首页',
-      icon: 'dashboard'
-    }
-  }]
-}
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/dashboard/index'),
+      meta: {
+        title: '首页',
+        icon: 'dashboard'
+      }
+    }]
+  }
 ]
 
 /**
@@ -63,30 +63,37 @@ export const constantRoutes = [{
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [{
-  path: '/card',
-  component: () => import('@/layout'),
-  redirect: 'noRedirect',
-  alwaysShow: true,
-  meta: {
-    title: '卡片管理',
-    icon: 'documentation'
-  },
-  children: [{
-    path: 'cardList',
-    component: () => import('@/views/card/cardList'),
+    path: '/card',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
+    alwaysShow: true,
     meta: {
-      title: '卡片列表',
-      icon: 'peoples'
-    }
-  }]
-},
+      title: '卡片管理',
+      icon: 'documentation'
+    },
+    children: [{
+      path: 'cardList',
+      component: () => import('@/views/card/cardList'),
+      meta: {
+        title: '卡片列表',
+        icon: 'peoples'
+      }
+    }, {
+      path: 'cardInput',
+      component: () => import('@/views/card/cardInput'),
+      meta: {
+        title: '卡片录入',
+        icon: 'peoples'
+      }
+    }]
+  },
 
-// 404 page must be placed at the end !!!
-{
-  path: '*',
-  redirect: '/404',
-  hidden: true
-}
+  // 404 page must be placed at the end !!!
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createRouter = () => new Router({

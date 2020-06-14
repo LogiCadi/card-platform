@@ -232,6 +232,9 @@
   }
 
   .filter-container {
-    padding-bottom: 10px;
+
+    .filter-item {
+      margin-bottom: 10px;
+    }
   }
 </style>

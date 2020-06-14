@@ -14,7 +14,6 @@
     <panel-row title="LR" :countArr="[res.lrToday, res.lrApply]" />
     <panel-row title="RO" :countArr="[res.roToday, res.roApply]" /> -->
 
-    111222
   </div>
 
 </template>

@@ -5,7 +5,21 @@
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  import {
+    getConfig
+  } from '@/api/common'
+  import Vue from 'vue'
+  export default {
+    name: 'App',
+    created() {
+      this.getConfig()
+    },
+    methods: {
+      async getConfig() {
+        // 枚举
+        const res = await getConfig()
+        Vue.prototype.cfg = res.data
+      }
+    }
+  }
 </script>
