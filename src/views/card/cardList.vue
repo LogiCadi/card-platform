@@ -42,8 +42,8 @@
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
 
       <!-- <el-table-column align="center" type="selection" width="70" /> -->
-      <el-table-column align="center" label="ICCIDID">
-        <template slot-scope="scope">{{ scope.row.id }}</template>
+      <el-table-column align="center" label="ICCID">
+        <template slot-scope="scope">{{ scope.row.iccid }}</template>
       </el-table-column>
 
       <el-table-column label="业务号码" align="center">
@@ -51,11 +51,15 @@
       </el-table-column>
 
       <el-table-column label="划拨状态" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
+        <template slot-scope="scope">
+          <el-tag :type="cfg.enum.assign_status.filter(e => { return e.id === scope.row.assign_status })[0].type">{{ cfg.enum.assign_status.filter(e => { return e.id === scope.row.assign_status })[0].value }}</el-tag>
+        </template>
       </el-table-column>
 
       <el-table-column label="卡片状态" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
+        <template slot-scope="scope">
+          <el-tag :type="cfg.enum.card_status.filter(e => { return e.id === scope.row.card_status })[0].type">{{ cfg.enum.card_status.filter(e => { return e.id === scope.row.card_status })[0].value }}</el-tag>
+        </template>
       </el-table-column>
 
       <el-table-column label="实名状态" width="120" align="center">
@@ -74,12 +78,12 @@
         <template slot-scope="scope">{{ scope.row.company_name }}</template>
       </el-table-column>
 
-      <el-table-column v-if="['cs_re'].includes(re)" align="center" label="审核状态" width="180">
+      <!-- <el-table-column v-if="['cs_re'].includes(re)" align="center" label="审核状态" width="180">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.reverseStatus === 1" type="warning">{{ scope.row.reverseStatusDesc }}</el-tag>
           <el-tag v-if="scope.row.reverseStatus === 2" type="danger">{{ scope.row.reverseStatusDesc }}</el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -174,35 +178,6 @@
       this.fetchData()
     },
     methods: {
-      submitHandle(row) {
-        let mainText, postData
-        if (this.re === 'op') {
-          mainText = '开通'
-          postData = {
-            applyId: row.applyId, // int, 开户id
-            auditStatus: 1, // int, 1-通过,2-驳回,3-不通过
-          }
-        } else if (this.re === 'cs_re') {
-          mainText = '放弃'
-          postData = {
-            chequeVerifyId: row.id, // 支票核验id
-            reverseStatus: 2, // 1 - 待放弃,2 - 已放弃
-          }
-        }
-
-        this.$confirm(`是否 <b>${mainText}</b> ${row.idName} 的申请`, '提示', {
-          dangerouslyUseHTMLString: true,
-          type: 'warning'
-        }).then(async () => {
-          await postSubmit(postData, this.re)
-          this.$message({
-            message: `${mainText}成功！`,
-            type: 'success'
-          })
-          this.fetchData()
-        })
-      },
-
       async fetchData() {
         const getDate = (time) => {
           if (!time) return

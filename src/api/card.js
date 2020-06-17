@@ -7,3 +7,11 @@ export function getCardList(data) {
     data
   })
 }
+
+// 卡片录入
+export function postCardInput(data) {
+  return request({
+    url: '/card/cardInput',
+    data
+  })
+}
