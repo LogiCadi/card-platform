@@ -63,54 +63,29 @@
       </el-table-column>
 
       <el-table-column label="实名状态" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.assign_status }}</template>
+        <template slot-scope="scope">
+          <el-tag :type="cfg.enum.real_name_auth.filter(e => { return e.id === scope.row.real_name_auth })[0].type">{{ cfg.enum.real_name_auth.filter(e => { return e.id === scope.row.real_name_auth })[0].value }}</el-tag>
+        </template>
       </el-table-column>
 
       <el-table-column label="激活时间" width="200" align="center">
-        <template slot-scope="scope">{{ scope.row.first_active_time }}</template>
+        <template slot-scope="scope">{{ scope.row.first_active_time || '——' }}</template>
+      </el-table-column>
+
+      <el-table-column label="到期时间" width="200" align="center">
+        <template slot-scope="scope">{{ scope.row.first_active_time || '——' }}</template>
       </el-table-column>
 
       <el-table-column label="已用流量" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.used_flow_size }}</template>
+        <template slot-scope="scope">{{ scope.row.used_flow_size + 'MB' }}</template>
+      </el-table-column>
+
+      <el-table-column label="卡批次" width="120" align="center">
+        <template slot-scope="scope">{{ scope.row.batch || '——' }}</template>
       </el-table-column>
 
       <el-table-column label="归属代理商" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.company_name }}</template>
-      </el-table-column>
-
-      <!-- <el-table-column v-if="['cs_re'].includes(re)" align="center" label="审核状态" width="180">
-        <template slot-scope="scope">
-          <el-tag v-if="scope.row.reverseStatus === 1" type="warning">{{ scope.row.reverseStatusDesc }}</el-tag>
-          <el-tag v-if="scope.row.reverseStatus === 2" type="danger">{{ scope.row.reverseStatusDesc }}</el-tag>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column label="操作" align="center" width="160" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button v-if="['table'].includes(re)" class="btn" type="primary" size="mini" @click="$router.push(`/openacc/info?id=${scope.row.applyId}&re=${re}`)">查看</el-button>
-          <el-button v-if="['table'].includes(re)" class="btn" type="" size="mini" @click="$router.push(`/openacc/log?id=${scope.row.applyId}&re=${re}`)">日志</el-button>
-
-          <el-button v-if="['serv', 'ca', 'lr_pre', 'ro_pre', 'cs', 'settle', 'lr', 'ro'].includes(re)" class="btn"
-            type="primary" size="mini" @click="$router.push(`/openacc/info?id=${scope.row.applyId}&re=${re}`)">审核</el-button>
-
-          <el-button v-if="['op'].includes(re)" class="btn" type="primary" size="mini" @click="submitHandle(scope.row)">开通账户</el-button>
-
-          <div v-if="['cs_re'].includes(re)">
-            <el-button v-if="scope.row.reverseStatus === 1" class="btn" type="primary" size="mini" @click="submitHandle(scope.row)">放弃</el-button>
-            <span v-else>——</span>
-          </div>
-        </template>
-      </el-table-column> -->
-
-      <el-table-column v-if="['table', 'serv', 'ca', 'lr_pre', 'ro_pre', 'lr', 'ro'].includes(re)" label="资料导出" align="center"
-        width="220" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
-          <el-button class="btn" size="mini" :disabled="![23, 24, 30, 70].includes(scope.row.openStatus)" type="success"
-            :loading="scope.row.download_pdf" @click="download(scope.row.applyId, scope.$index, 'download_pdf')">开户申请表</el-button>
-          <el-button class="btn" size="mini" type="warning" :loading="scope.row.download_excel" @click="download(scope.row.applyId, scope.$index, 'download_excel')">
-            信息表
-          </el-button>
-        </template>
+        <template slot-scope="scope">{{ scope.row.company_name || '——' }}</template>
       </el-table-column>
 
     </el-table>
