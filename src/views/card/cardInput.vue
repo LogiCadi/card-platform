@@ -42,9 +42,17 @@
         <el-input v-model="form.batch" value="20200615-"></el-input>
       </el-form-item> -->
       <el-form-item label="CSV文件">
-        <el-upload class="upload-demo" :action="baseUrl + '/config/upload'" :on-success="e => { form.csv = e.data.url }">
+        <el-upload class="upload-demo" :action="VUE_APP_BASE_API + '/config/upload'" :on-success="e => { form.csv = e.data.url }">
           <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
+      </el-form-item>
+
+      <el-form-item label="模板">
+        <el-row>
+          <el-button @click="downloadTpl()" size="small" type="primary">移动模板</el-button>
+          <el-button @click="downloadTpl()" size="small" type="primary">联通模板</el-button>
+          <el-button @click="downloadTpl()" size="small" type="primary">电信模板</el-button>
+        </el-row>
       </el-form-item>
 
       <el-form-item>
@@ -62,18 +70,24 @@
   export default {
     data() {
       return {
-        baseUrl: process.env.VUE_APP_BASE_API,
+        VUE_APP_BASE_API: process.env.VUE_APP_BASE_API,
         form: {}
       }
     },
     methods: {
+      downloadTpl() {
+        location.href = process.env.VUE_APP_BASE + '/uploads/template/tpl.csv'
+      },
       async submit() {
         await postCardInput({
           form: this.form
         })
-        this.$message({
-          type: 'success',
-          message: '成功'
+        this.$confirm('录入成功！', '提示', {
+          confirmButtonText: '跳转列表',
+          cancelButtonText: '继续录入',
+          type: 'success'
+        }).then(() => {
+          this.$router.push('/card/cardList')
         })
       }
     }

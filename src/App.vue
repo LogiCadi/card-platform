@@ -16,7 +16,7 @@
     },
     methods: {
       async getConfig() {
-        // 枚举
+        // 动态配置
         const res = await getConfig()
         Vue.prototype.cfg = res.data
       }
