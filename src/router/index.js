@@ -72,17 +72,69 @@ export const asyncRoutes = [{
       icon: 'documentation'
     },
     children: [{
-      path: 'cardList',
-      component: () => import('@/views/card/cardList'),
+      path: 'list',
+      component: () => import('@/views/card/list'),
       meta: {
         title: '卡片列表',
         icon: 'peoples'
       }
     }, {
-      path: 'cardInput',
-      component: () => import('@/views/card/cardInput'),
+      path: 'create',
+      component: () => import('@/views/card/create'),
       meta: {
         title: '卡片录入',
+        icon: 'peoples'
+      }
+    }]
+  },
+
+  {
+    path: '/agent',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
+    alwaysShow: true,
+    meta: {
+      title: '代理商管理',
+      icon: 'documentation'
+    },
+    children: [{
+      path: 'list',
+      component: () => import('@/views/agent/list'),
+      meta: {
+        title: '代理商列表',
+        icon: 'peoples'
+      }
+    }, {
+      path: 'create',
+      component: () => import('@/views/agent/create'),
+      meta: {
+        title: '添加代理商',
+        icon: 'peoples'
+      }
+    }]
+  },
+
+  {
+    path: '/meal',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
+    alwaysShow: true,
+    meta: {
+      title: '套餐管理',
+      icon: 'documentation'
+    },
+    children: [{
+      path: 'list',
+      component: () => import('@/views/meal/list'),
+      meta: {
+        title: '套餐列表',
+        icon: 'peoples'
+      }
+    }, {
+      path: 'create',
+      component: () => import('@/views/meal/create'),
+      meta: {
+        title: '添加套餐',
         icon: 'peoples'
       }
     }]

@@ -87,7 +87,7 @@
           cancelButtonText: '继续录入',
           type: 'success'
         }).then(() => {
-          this.$router.push('/card/cardList')
+          this.$router.push('/card/list')
         })
       }
     }
