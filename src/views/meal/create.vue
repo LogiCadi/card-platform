@@ -2,9 +2,10 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="自定义套餐名称">
-        <el-select style="width: 300px;" v-model="form.operator" placeholder="请选择">
+        
+        <!-- <el-select style="width: 300px;" v-model="form.operator" placeholder="请选择">
           <el-option v-for="(item, index) in cfg.enum.operator" :key="index" :label="item.value" :value="item.id"></el-option>
-        </el-select>
+        </el-select> -->
       </el-form-item>
       <el-form-item label="原价（元）">
         <el-select style="width: 300px;" v-model="form.region_operator" placeholder="请选择">
