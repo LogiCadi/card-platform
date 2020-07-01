@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="150px">
-      <el-form-item label="运营商">
+      <el-form-item label="自定义套餐名称">
         <el-select style="width: 300px;" v-model="form.operator" placeholder="请选择">
           <el-option v-for="(item, index) in cfg.enum.operator" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="地区运营商">
+      <el-form-item label="原价（元）">
         <el-select style="width: 300px;" v-model="form.region_operator" placeholder="请选择">
           <el-option v-if="item.operator_id === form.operator" v-for="(item, index) in cfg.enum.region_operator" :key="index"
             :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="运营商接口文档">
+      <el-form-item label="套餐售价(元)">
         <el-select style="width: 300px;" v-model="form.region_operator_api" placeholder="请选择">
           <el-option v-if="item.region_operator_id === form.region_operator" v-for="(item, index) in cfg.enum.region_operator_api"
             :key="index" :label="item.value" :value="item.id"></el-option>
