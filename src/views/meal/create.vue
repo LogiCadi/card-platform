@@ -45,8 +45,8 @@
         </el-select>
       </el-form-item>
       <el-form-item label="购买限制">
-        <el-select style="width: 300px;" v-model="form.package" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.package" :key="index" :label="item.value" :value="item.id"></el-option>
+        <el-select style="width: 300px;" v-model="form.buy_limit" placeholder="请选择">
+          <el-option v-for="(item, index) in cfg.enum.buy_limit" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
 
@@ -60,30 +60,25 @@
 
 <script>
   import {
-    postCardInput
-  } from '@/api/card'
+    postSave
+  } from '@/api/meal'
   export default {
     data() {
       return {
-        VUE_APP_BASE_API: process.env.VUE_APP_BASE_API,
         form: {}
       }
     },
     methods: {
-      downloadTpl() {
-        location.href = process.env.VUE_APP_BASE + '/uploads/template/tpl.csv'
-      },
       async submit() {
-        await postCardInput({
+        await postSave({
           form: this.form
         })
-        this.$confirm('录入成功！', '提示', {
-          confirmButtonText: '跳转列表',
-          cancelButtonText: '继续录入',
+
+        this.$message({
+          message: '操作成功！',
           type: 'success'
-        }).then(() => {
-          this.$router.push('/card/list')
         })
+        setTimeout(() => this.$router.push('/meal/list'), 500)
       }
     }
   }

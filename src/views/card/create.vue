@@ -119,13 +119,11 @@ export default {
       await postCardInput({
         form: this.form
       })
-      this.$confirm('录入成功！', '提示', {
-        confirmButtonText: '跳转列表',
-        cancelButtonText: '继续录入',
+      this.$message({
+        message: '操作成功！',
         type: 'success'
-      }).then(() => {
-        this.$router.push('/card/list')
       })
+      setTimeout(() => this.$router.push('/card/list'), 500)
     }
   }
 }

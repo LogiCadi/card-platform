@@ -1,8 +1,7 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
+    <!-- <div class="filter-container">
       <el-form @submit.native.prevent>
-        <!-- <el-button v-waves class="filter-item" type="primary" icon="el-icon-download" @click="downloads">打印</el-button>s -->
         <el-input v-model="listQuery.name" placeholder="姓名" style="width: 150px;" class="filter-item" />
         <el-input v-model="listQuery.mobileNo" placeholder="手机" style="width: 200px;" class="filter-item" />
         <el-input v-model="listQuery.idNo" placeholder="地区运营商" style="width: 200px;" class="filter-item" />
@@ -34,58 +33,45 @@
         </el-date-picker>
 
         <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" native-type="submit" @click="fetchData">搜索</el-button>
-        <!-- <el-button v-waves class="filter-item" type="warning" icon="el-icon-download" @click="downloads">批量下载</el-button> -->
       </el-form>
-    </div>
+    </div> -->
 
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
 
-      <!-- <el-table-column align="center" type="selection" width="70" /> -->
-      <el-table-column align="center" label="ICCID">
-        <template slot-scope="scope">{{ scope.row.iccid }}</template>
+      <el-table-column align="center" label="自定义套餐名称">
+        <template slot-scope="scope"> {{ scope.row.name }} </template>
       </el-table-column>
-
-      <el-table-column label="业务号码" align="center">
-        <template slot-scope="scope">{{ scope.row.business_code }}</template>
+      <el-table-column align="center" label="原价(元)">
+        <template slot-scope="scope"> {{ scope.row.orign_price }} </template>
       </el-table-column>
-
-      <el-table-column label="划拨状态" width="120" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="cfg.enum.assign_status.filter(e => { return e.id === scope.row.assign_status })[0].type">{{ cfg.enum.assign_status.filter(e => { return e.id === scope.row.assign_status })[0].value }}</el-tag>
+      <el-table-column align="center" label="套餐售价(元)">
+        <template slot-scope="scope"> {{ scope.row.meal_price }} </template>
+      </el-table-column>
+      <el-table-column align="center" label="套餐成本(元)">
+        <template slot-scope="scope"> {{ scope.row.meal_cost }} </template>
+      </el-table-column>
+      <el-table-column align="center" label="套餐类型">
+        <template slot-scope="scope"> {{ cfg.enum.meal_type.filter(e => e.id == scope.row.meal_type)[0].value }}
         </template>
       </el-table-column>
+      <el-table-column align="center" label="套餐周期(月)">
+        <template slot-scope="scope"> {{ scope.row.meal_period }} </template>
+      </el-table-column>
+      <el-table-column align="center" label="通话分钟(分)">
+        <template slot-scope="scope"> {{ scope.row.call_mins }} </template>
+      </el-table-column>
+      <el-table-column align="center" label="流量包大小(MB)">
+        <template slot-scope="scope"> {{ scope.row.flow }} </template>
+      </el-table-column>
 
-      <el-table-column label="卡片状态" width="120" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="cfg.enum.card_status.filter(e => { return e.id === scope.row.card_status })[0].type">{{ cfg.enum.card_status.filter(e => { return e.id === scope.row.card_status })[0].value }}</el-tag>
+      <el-table-column align="center" label="结算类型">
+        <template slot-scope="scope"> {{ cfg.enum.settle_type.filter(e => e.id == scope.row.settle_type)[0].value }}
         </template>
       </el-table-column>
-
-      <el-table-column label="实名状态" width="120" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="cfg.enum.real_name_auth.filter(e => { return e.id === scope.row.real_name_auth })[0].type">{{ cfg.enum.real_name_auth.filter(e => { return e.id === scope.row.real_name_auth })[0].value }}</el-tag>
+      <el-table-column align="center" label="购买限制">
+        <template slot-scope="scope"> {{ cfg.enum.buy_limit.filter(e => e.id == scope.row.buy_limit)[0].value }}
         </template>
-      </el-table-column>
-
-      <el-table-column label="激活时间" width="200" align="center">
-        <template slot-scope="scope">{{ scope.row.first_active_time || '——' }}</template>
-      </el-table-column>
-
-      <el-table-column label="到期时间" width="200" align="center">
-        <template slot-scope="scope">{{ scope.row.first_active_time || '——' }}</template>
-      </el-table-column>
-
-      <el-table-column label="已用流量" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.used_flow_size + 'MB' }}</template>
-      </el-table-column>
-
-      <el-table-column label="卡批次" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.batch || '——' }}</template>
-      </el-table-column>
-
-      <el-table-column label="归属代理商" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.company_name || '——' }}</template>
       </el-table-column>
 
     </el-table>
@@ -99,8 +85,8 @@
   import waves from '@/directive/waves' // waves directive
   import Pagination from '@/components/Pagination' // secondary package based on el-pagination
   import {
-    getCardList
-  } from '@/api/card'
+    getList
+  } from '@/api/meal'
 
   import config from '@/config/card'
 
@@ -166,7 +152,7 @@
         this.listQuery.submitTimeFinish = getDate(this.dateArr && this.dateArr[1])
 
         this.listLoading = true
-        const res = await getCardList(this.listQuery, this.re)
+        const res = await getList(this.listQuery, this.re)
         this.total = res.data.total
         this.list = res.data.list
         setTimeout(() => {
