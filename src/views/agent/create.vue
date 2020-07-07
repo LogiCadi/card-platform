@@ -4,9 +4,9 @@
       <el-form-item label="上级代理商">
         <el-select style="width: 300px;" v-model="form.up_agent_id" placeholder="请选择">
           <el-option
-            v-for="(item, index) in cfg.enum.up_agent_id"
+            v-for="(item, index) in agentList"
             :key="index"
-            :label="item.value"
+            :label="item.name"
             :value="item.id"
           ></el-option>
         </el-select>
@@ -112,14 +112,21 @@
 </template>
 
 <script>
-import { postCreate } from '@/api/agent'
+import { postCreate, getList } from '@/api/agent'
 export default {
   data() {
     return {
-      form: {}
+      form: {},
+      agentList: []
     }
   },
+  created() {
+    this.getAllAgent()
+  },
   methods: {
+    async getAllAgent() {
+      this.agentList = (await getList({ size: 9999 })).data.list
+    },
     async submit() {
       await postCreate({
         form: this.form
