@@ -1,52 +1,52 @@
 <template>
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="200px">
-      <el-form-item label="自定义套餐名称">
-        <el-input v-model="form.name" placeholder="购买页展示" style="width: 500px;" class="filter-item" />
+      <el-form-item label="用户名">
+        <el-input v-model="form.username" placeholder style="width: 500px;" class="filter-item" />
       </el-form-item>
-      <el-form-item label="原价(元)">
-        <el-input v-model="form.orign_price" placeholder="" style="width: 500px;" class="filter-item" />
+      <el-form-item label="真实姓名">
+        <el-input v-model="form.realname" placeholder style="width: 500px;" class="filter-item" />
       </el-form-item>
-      <el-form-item label="套餐售价(元)">
-        <el-input v-model="form.meal_price" placeholder="" style="width: 500px;" class="filter-item" />
+      <el-form-item label="登录密码">
+        <el-input
+          v-model="form.password"
+          type="password"
+          placeholder
+          style="width: 500px;"
+          class="filter-item"
+        />
       </el-form-item>
-      <el-form-item label="套餐成本(元)">
-        <el-input v-model="form.meal_cost" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="套餐类型">
-        <el-select style="width: 300px;" v-model="form.meal_type" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.meal_type" :key="index" :label="item.value" :value="item.id"></el-option>
+      <el-form-item label="性别">
+        <el-select style="width: 300px;" v-model="form.gender" placeholder="请选择">
+          <el-option
+            v-for="(item, index) in cfg.enum.gender"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="套餐周期(月)">
-        <el-input v-model="form.meal_period" placeholder="" style="width: 500px;" class="filter-item" />
+      <el-form-item label="email">
+        <el-input v-model="form.email" placeholder style="width: 500px;" class="filter-item" />
       </el-form-item>
-      <el-form-item label="通话分钟(分)">
-        <el-input v-model="form.call_mins" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="流量包大小(MB)">
-        <el-input v-model="form.flow" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="徕纳语音停用阀值(分)">
-        <el-input v-model="form.laina_voice" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="徕纳流量停用基础阀值(MB)">
-        <el-input v-model="form.laina_flow_base" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="徕纳流量停用进阶阀值(MB)">
-        <el-input v-model="form.laina_flow_advance" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="徕纳流量停用顶峰阀值(MB)">
-        <el-input v-model="form.laina_flow_top" placeholder="" style="width: 500px;" class="filter-item" />
-      </el-form-item>
-      <el-form-item label="结算类型">
-        <el-select style="width: 300px;" v-model="form.settle_type" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.settle_type" :key="index" :label="item.value" :value="item.id"></el-option>
+      <el-form-item label="所属代理商">
+        <el-select style="width: 300px;" v-model="form.agent_list" placeholder="请选择">
+          <el-option
+            v-for="(item, index) in cfg.enum.agent_list"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="购买限制">
-        <el-select style="width: 300px;" v-model="form.buy_limit" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.buy_limit" :key="index" :label="item.value" :value="item.id"></el-option>
+      <el-form-item label="角色">
+        <el-select style="width: 300px;" v-model="form.role" placeholder="请选择">
+          <el-option
+            v-for="(item, index) in cfg.enum.role"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
 
@@ -59,37 +59,35 @@
 </template>
 
 <script>
-  import {
-    postSave
-  } from '@/api/meal'
-  export default {
-    data() {
-      return {
-        form: {}
-      }
-    },
-    methods: {
-      async submit() {
-        await postSave({
-          form: this.form
-        })
+import { postSave } from '@/api/user'
+export default {
+  data() {
+    return {
+      form: {}
+    }
+  },
+  methods: {
+    async submit() {
+      await postSave({
+        form: this.form
+      })
 
-        this.$message({
-          message: '操作成功！',
-          type: 'success'
-        })
-        setTimeout(() => this.$router.push('/meal/list'), 500)
-      }
+      this.$message({
+        message: '操作成功！',
+        type: 'success'
+      })
+      setTimeout(() => this.$router.push('/user/list'), 500)
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  .app-container {
-    padding: 40px 5%;
+.app-container {
+  padding: 40px 5%;
 
-    .line {
-      text-align: center;
-    }
+  .line {
+    text-align: center;
   }
+}
 </style>

@@ -13,3 +13,19 @@ export function getInfo(data) {
     data
   })
 }
+
+// 列表
+export function getList(data) {
+  return request({
+    url: '/user/list',
+    data
+  })
+}
+
+// 新增
+export function postSave(data) {
+  return request({
+    url: '/user/save',
+    data
+  })
+}
