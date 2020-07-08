@@ -10,7 +10,7 @@
       highlight-current-row
     >
       <el-table-column label="上级代理商">
-        <template slot-scope="scope">{{ scope.row.up_agent_id }}</template>
+        <template slot-scope="scope">{{ scope.row.up_agent_id && agentList.filter(e => e.id === scope.row.up_agent_id)[0].name || '' }}</template>
       </el-table-column>
       <el-table-column label="代理商名称">
         <template slot-scope="scope">{{ scope.row.name }}</template>
@@ -30,7 +30,7 @@
       </el-table-column>
 
       <el-table-column label="客户经理">
-        <template slot-scope="scope">{{ scope.row.custom_manager }}</template>
+        <template slot-scope="scope">{{ scope.row.custom_manager && userList.filter(e => e.id === scope.row.custom_manager)[0].realname || '' }}</template>
       </el-table-column>
     </el-table>
 
@@ -48,6 +48,7 @@
 import waves from '@/directive/waves' // waves directive
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { getList } from '@/api/agent'
+import { getList as getUserList } from '@/api/user'
 
 import config from '@/config/card'
 
@@ -91,14 +92,25 @@ export default {
 
         submitTimeStart: '', // 申请时间开始(可选查询)
         submitTimeFinish: '' // 申请时间结束(可选查询)
-      }
+      },
+
+      agentList: [],
+      userList: []
     }
   },
   computed: {},
   created() {
+    this.getAllAgent()
+    this.getAllUser()
     this.fetchData()
   },
   methods: {
+    async getAllAgent() {
+      this.agentList = (await getList({ size: 9999 })).data.list
+    },
+    async getAllUser() {
+      this.userList = (await getUserList({ size: 9999 })).data.list
+    },
     async fetchData() {
       const getDate = time => {
         if (!time) return

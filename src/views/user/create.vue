@@ -30,11 +30,11 @@
         <el-input v-model="form.email" placeholder style="width: 500px;" class="filter-item" />
       </el-form-item>
       <el-form-item label="所属代理商">
-        <el-select style="width: 300px;" v-model="form.agent_list" placeholder="请选择">
+        <el-select style="width: 300px;" v-model="form.agent" placeholder="请选择">
           <el-option
-            v-for="(item, index) in cfg.enum.agent_list"
+            v-for="(item, index) in agentList"
             :key="index"
-            :label="item.value"
+            :label="item.name"
             :value="item.id"
           ></el-option>
         </el-select>
@@ -60,13 +60,22 @@
 
 <script>
 import { postSave } from '@/api/user'
+import { getList } from '@/api/agent'
+
 export default {
   data() {
     return {
-      form: {}
+      form: {},
+      agentList: []
     }
   },
+  created() {
+    this.getAllAgent()
+  },
   methods: {
+    async getAllAgent() {
+      this.agentList = (await getList({ size: 9999 })).data.list
+    },
     async submit() {
       await postSave({
         form: this.form

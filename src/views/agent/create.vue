@@ -87,9 +87,9 @@
       <el-form-item label="客户经理">
         <el-select style="width: 300px;" v-model="form.custom_manager" placeholder="请选择">
           <el-option
-            v-for="(item, index) in cfg.enum.custom_manager"
+            v-for="(item, index) in userList"
             :key="index"
-            :label="item.value"
+            :label="item.realname"
             :value="item.id"
           ></el-option>
         </el-select>
@@ -113,19 +113,25 @@
 
 <script>
 import { postCreate, getList } from '@/api/agent'
+import { getList as getUserList } from '@/api/user'
 export default {
   data() {
     return {
       form: {},
-      agentList: []
+      agentList: [],
+      userList: []
     }
   },
   created() {
     this.getAllAgent()
+    this.getAllUser()
   },
   methods: {
     async getAllAgent() {
       this.agentList = (await getList({ size: 9999 })).data.list
+    },
+    async getAllUser() {
+      this.userList = (await getUserList({ size: 9999 })).data.list
     },
     async submit() {
       await postCreate({
