@@ -5,9 +5,8 @@
       <h3>分配设置</h3>
       <el-form-item label="下级代理商">
         <el-select style="width: 300px;" v-model="form.down_agent_id" placeholder="请选择">
-          <el-option v-for="(item, index) in allAgent" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in allAgent" :key="index" :label="item.name" :value="item.id"></el-option>
         </el-select>
-        <el-input v-model="form.down_agent_id" style="width: 500px;" class="filter-item" />
       </el-form-item>
       <el-form-item label="下级成本价格">
         <el-input v-model="form.down_cost" style="width: 500px;" class="filter-item" />

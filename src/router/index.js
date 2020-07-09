@@ -31,39 +31,39 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [{
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [{
-      path: '/redirect/:path(.*)',
-      component: () => import('@/views/redirect/index')
-    }]
-  }, {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
+  path: '/redirect',
+  component: Layout,
+  hidden: true,
+  children: [{
+    path: '/redirect/:path(.*)',
+    component: () => import('@/views/redirect/index')
+  }]
+}, {
+  path: '/login',
+  component: () => import('@/views/login/index'),
+  hidden: true
+},
 
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
+{
+  path: '/404',
+  component: () => import('@/views/404'),
+  hidden: true
+},
 
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: {
-        title: '首页',
-        icon: 'dashboard'
-      }
-    }]
-  }
+{
+  path: '/',
+  component: Layout,
+  redirect: '/dashboard',
+  children: [{
+    path: 'dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/dashboard/index'),
+    meta: {
+      title: '首页',
+      icon: 'dashboard'
+    }
+  }]
+}
 ]
 
 /**
@@ -71,115 +71,122 @@ export const constantRoutes = [{
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [{
-    path: '/card',
-    component: () => import('@/layout'),
-    redirect: 'noRedirect',
-    alwaysShow: true,
-    meta: {
-      title: '卡片管理',
-      icon: 'documentation'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/card/list'),
-      meta: {
-        title: '卡片列表',
-        icon: 'peoples'
-      }
-    }, {
-      path: 'create',
-      component: () => import('@/views/card/create'),
-      meta: {
-        title: '卡片录入',
-        icon: 'peoples'
-      }
-    }]
+  path: '/card',
+  component: () => import('@/layout'),
+  redirect: 'noRedirect',
+  alwaysShow: true,
+  meta: {
+    title: '卡片管理',
+    icon: 'documentation'
   },
-
-  {
-    path: '/agent',
-    component: () => import('@/layout'),
-    redirect: 'noRedirect',
-    alwaysShow: true,
+  children: [{
+    path: 'list',
+    component: () => import('@/views/card/list'),
     meta: {
-      title: '代理商管理',
-      icon: 'documentation'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/agent/list'),
-      meta: {
-        title: '代理商列表',
-        icon: 'peoples'
-      }
-    }, {
-      path: 'create',
-      component: () => import('@/views/agent/create'),
-      meta: {
-        title: '添加代理商',
-        icon: 'peoples'
-      }
-    }]
-  },
-
-  {
-    path: '/meal',
-    component: () => import('@/layout'),
-    redirect: 'noRedirect',
-    alwaysShow: true,
+      title: '卡片列表',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'create',
+    component: () => import('@/views/card/create'),
     meta: {
-      title: '套餐管理',
-      icon: 'documentation'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/meal/list'),
-      meta: {
-        title: '套餐列表',
-        icon: 'peoples'
-      }
-    }, {
-      path: 'create',
-      component: () => import('@/views/meal/create'),
-      meta: {
-        title: '添加套餐',
-        icon: 'peoples'
-      }
-    }]
-  },
+      title: '卡片录入',
+      icon: 'peoples'
+    }
+  }]
+},
 
-  {
-    path: '/user',
-    component: () => import('@/layout'),
-    redirect: 'noRedirect',
-    alwaysShow: true,
+{
+  path: '/agent',
+  component: () => import('@/layout'),
+  redirect: 'noRedirect',
+  alwaysShow: true,
+  meta: {
+    title: '代理商管理',
+    icon: 'documentation'
+  },
+  children: [{
+    path: 'list',
+    component: () => import('@/views/agent/list'),
     meta: {
-      title: '用户管理',
-      icon: 'documentation'
-    },
-    children: [{
-      path: 'list',
-      component: () => import('@/views/user/list'),
-      meta: {
-        title: '用户列表',
-        icon: 'peoples'
-      }
-    }, {
-      path: 'create',
-      component: () => import('@/views/user/create'),
-      meta: {
-        title: '添加用户',
-        icon: 'peoples'
-      }
-    }]
-  },
+      title: '代理商列表',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'create',
+    component: () => import('@/views/agent/create'),
+    meta: {
+      title: '添加代理商',
+      icon: 'peoples'
+    }
+  }]
+},
 
-  // 404 page must be placed at the end !!!
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
-  }
+{
+  path: '/meal',
+  component: () => import('@/layout'),
+  redirect: 'noRedirect',
+  alwaysShow: true,
+  meta: {
+    title: '套餐管理',
+    icon: 'documentation'
+  },
+  children: [{
+    path: 'list',
+    component: () => import('@/views/meal/list'),
+    meta: {
+      title: '套餐列表',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'create',
+    component: () => import('@/views/meal/create'),
+    meta: {
+      title: '添加套餐',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'allot',
+    component: () => import('@/views/meal/allot'),
+    meta: {
+      title: '分配套餐',
+      icon: 'peoples'
+    }
+  }]
+},
+
+{
+  path: '/user',
+  component: () => import('@/layout'),
+  redirect: 'noRedirect',
+  alwaysShow: true,
+  meta: {
+    title: '用户管理',
+    icon: 'documentation'
+  },
+  children: [{
+    path: 'list',
+    component: () => import('@/views/user/list'),
+    meta: {
+      title: '用户列表',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'create',
+    component: () => import('@/views/user/create'),
+    meta: {
+      title: '添加用户',
+      icon: 'peoples'
+    }
+  }]
+},
+
+// 404 page must be placed at the end !!!
+{
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 ]
 
 const createRouter = () => new Router({
