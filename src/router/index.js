@@ -152,6 +152,14 @@ export const asyncRoutes = [{
       title: '分配套餐',
       icon: 'peoples'
     }
+  }, {
+    path: 'allotSetting/:id',
+    component: () => import('@/views/meal/allotSetting'),
+    hidden: true,
+    meta: {
+      title: '分配设置',
+      icon: 'peoples'
+    }
   }]
 },
 

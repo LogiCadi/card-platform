@@ -1,26 +1,32 @@
 <template>
   <div class="app-container">
-
+    当前分配代理商：<h3>{{ agent_name }}</h3>
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
-      <el-table-column align="center" label="代理商名称">
+      <el-table-column align="center" label="套餐名称">
         <template slot-scope="scope">{{ scope.row.name }}</template>
       </el-table-column>
-      <el-table-column align="center" label="代理商别名">
-        <template slot-scope="scope">{{ scope.row.name_alias }}</template>
+      <el-table-column align="center" label="结算类型">
+        <template slot-scope="scope">{{ cfg.enum.settle_type.filter(e => e.id == scope.row.settle_type)[0].value }}</template>
       </el-table-column>
-      <el-table-column align="center" label="联系人">
-        <template slot-scope="scope">{{ scope.row.contact_name }}</template>
+      <el-table-column label="语音阀值(分)">
+        <template slot-scope="scope">{{ scope.row.laina_voice }} </template>
       </el-table-column>
-      <el-table-column align="center" label="联系电话">
-        <template slot-scope="scope">{{ scope.row.contact_mobile }}</template>
+      <el-table-column label="流量基础阀值(MB)">
+        <template slot-scope="scope">{{ scope.row.laina_flow_base }} </template>
       </el-table-column>
-      <el-table-column align="center" label="email">
-        <template slot-scope="scope">{{ scope.row.contact_email }}</template>
+      <el-table-column label="流量进阶阀值(MB)">
+        <template slot-scope="scope">{{ scope.row.laina_flow_advance }} </template>
+      </el-table-column>
+      <el-table-column label="流量顶峰阀值(MB)">
+        <template slot-scope="scope">{{ scope.row.laina_flow_top }} </template>
+      </el-table-column>
+      <el-table-column align="center" label="套餐售价(元)">
+        <template slot-scope="scope">{{ scope.row.meal_price }}</template>
       </el-table-column>
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <el-button class="btn" type="primary" size="mini" @click="$router.push(`/meal/allotSetting/${scope.row.id}`)">分配</el-button>
+          <el-button class="btn" type="primary" size="mini" @click="$router.push(``)">审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -32,7 +38,7 @@
 <script>
   import waves from '@/directive/waves' // waves directive
   import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-  import { getList } from '@/api/agent'
+  import { getMealList } from '@/api/agent'
 
   export default {
     directives: {
@@ -48,7 +54,9 @@
         total: 0,
         listQuery: {
           page: 1, // 当前页码
-          size: 20 // 每页大小
+          size: 20, // 每页大小
+
+          id: this.$route.params.id,
         }
       }
     },
@@ -58,9 +66,10 @@
     methods: {
       async fetchData() {
         this.listLoading = true
-        const res = await getList(this.listQuery, this.re)
+        const res = await getMealList(this.listQuery, this.re)
         this.total = res.data.total
         this.list = res.data.list
+        this.agent_name = res.data.agent_name
         setTimeout(() => {
           this.listLoading = false
         }, 500)

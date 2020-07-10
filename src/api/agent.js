@@ -15,3 +15,10 @@ export function postCreate(data) {
     data
   })
 }
+
+export function getMealList(data) {
+  return request({
+    url: '/agent/getMealList',
+    data
+  })
+}
