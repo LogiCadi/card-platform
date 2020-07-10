@@ -141,6 +141,7 @@ export const asyncRoutes = [{
   }, {
     path: 'create',
     component: () => import('@/views/meal/create'),
+    hidden: true,
     meta: {
       title: '添加套餐',
       icon: 'peoples'
@@ -158,6 +159,21 @@ export const asyncRoutes = [{
     hidden: true,
     meta: {
       title: '分配设置',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'package',
+    component: () => import('@/views/meal/package'),
+    meta: {
+      title: '加油包',
+      icon: 'peoples'
+    }
+  }, {
+    path: 'packageCreate',
+    component: () => import('@/views/meal/packageCreate'),
+    hidden: true,
+    meta: {
+      title: '添加加油包',
       icon: 'peoples'
     }
   }]

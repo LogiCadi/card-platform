@@ -24,11 +24,6 @@
       <el-table-column align="center" label="套餐售价(元)">
         <template slot-scope="scope">{{ scope.row.meal_price }}</template>
       </el-table-column>
-      <el-table-column align="center" label="操作">
-        <template slot-scope="scope">
-          <el-button class="btn" type="primary" size="mini" @click="$router.push(``)">审核</el-button>
-        </template>
-      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="fetchData" />
