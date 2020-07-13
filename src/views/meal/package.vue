@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-form @submit.native.prevent>
-        <el-button v-waves class="filter-item" type="success" icon="el-icon-plus" native-type="submit" @click="$router.push('/meal/packageCreate')">添加套餐</el-button>
+        <el-button v-waves class="filter-item" type="success" icon="el-icon-plus" native-type="submit" @click="$router.push('/meal/packageCreate')">添加加油包</el-button>
       </el-form>
     </div>
     <!-- 表格内容 -->
