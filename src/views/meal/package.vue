@@ -7,37 +7,37 @@
     </div>
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
-      <el-table-column align="center" label="自定义套餐名称">
+      <el-table-column align="center" label="运营商">
+        <template slot-scope="scope">{{ cfg.enum.operator.filter(e => e.id === scope.row.operator)[0].value }}</template>
+      </el-table-column>
+      <el-table-column align="center" label="地区运营商">
+        <template slot-scope="scope">{{ cfg.enum.region_operator.filter(e => e.id === scope.row.region_operator)[0].value }}</template>
+      </el-table-column>
+      <el-table-column align="center" label="套餐名字">
         <template slot-scope="scope">{{ scope.row.name }}</template>
       </el-table-column>
-      <el-table-column align="center" label="原价(元)">
-        <template slot-scope="scope">{{ scope.row.orign_price }}</template>
+      <el-table-column align="center" label="套餐别名(显示在微信公众号购买套餐)">
+        <template slot-scope="scope">{{ scope.row.alias }}</template>
       </el-table-column>
-      <el-table-column align="center" label="套餐售价(元)">
-        <template slot-scope="scope">{{ scope.row.meal_price }}</template>
-      </el-table-column>
-      <el-table-column align="center" label="套餐成本(元)">
-        <template slot-scope="scope">{{ scope.row.meal_cost }}</template>
-      </el-table-column>
-      <el-table-column align="center" label="套餐类型">
-        <template slot-scope="scope">{{ cfg.enum.meal_type.filter(e => e.id == scope.row.meal_type)[0].value }}</template>
+      <el-table-column align="center" label="套餐价格(元)">
+        <template slot-scope="scope">{{ scope.row.price }}</template>
       </el-table-column>
       <el-table-column align="center" label="套餐周期(月)">
-        <template slot-scope="scope">{{ scope.row.meal_period }}</template>
+        <template slot-scope="scope">{{ scope.row.period }}</template>
       </el-table-column>
       <el-table-column align="center" label="通话分钟(分)">
-        <template slot-scope="scope">{{ scope.row.call_mins }}</template>
+        <template slot-scope="scope">{{ scope.row.mins }}</template>
       </el-table-column>
-      <el-table-column align="center" label="流量包大小(MB)">
-        <template slot-scope="scope">{{ scope.row.flow }}</template>
+      <el-table-column align="center" label="短信条数(条)">
+        <template slot-scope="scope">{{ scope.row.msg_count }}</template>
+      </el-table-column>
+      <el-table-column align="center" label="是否上架">
+        <template slot-scope="scope">{{ cfg.enum.id_added.filter(e => e.id === scope.row.id_added)[0].value }}</template>
+      </el-table-column>
+      <el-table-column align="center" label="是否推荐">
+        <template slot-scope="scope">{{ cfg.enum.recommend.filter(e => e.id === scope.row.recommend)[0].value }}</template>
       </el-table-column>
 
-      <el-table-column align="center" label="结算类型">
-        <template slot-scope="scope">{{ cfg.enum.settle_type.filter(e => e.id == scope.row.settle_type)[0].value }}</template>
-      </el-table-column>
-      <el-table-column align="center" label="购买限制">
-        <template slot-scope="scope">{{ cfg.enum.buy_limit.filter(e => e.id == scope.row.buy_limit)[0].value }}</template>
-      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="fetchData" />
@@ -47,7 +47,7 @@
 <script>
   import waves from '@/directive/waves' // waves directive
   import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-  import { getList } from '@/api/meal'
+  import { getList } from '@/api/package'
 
   export default {
     directives: {
