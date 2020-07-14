@@ -32,7 +32,7 @@
         <template slot-scope="scope">{{ scope.row.msg_count }}</template>
       </el-table-column>
       <el-table-column align="center" label="是否上架">
-        <template slot-scope="scope">{{ cfg.enum.id_added.filter(e => e.id === scope.row.id_added)[0].value }}</template>
+        <template slot-scope="scope">{{ cfg.enum.is_added.filter(e => e.id === scope.row.is_added)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="是否推荐">
         <template slot-scope="scope">{{ cfg.enum.recommend.filter(e => e.id === scope.row.recommend)[0].value }}</template>
