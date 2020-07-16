@@ -24,8 +24,8 @@
         </el-select>
       </el-form-item>
       <el-form-item label="应用场景">
-        <el-select style="width: 300px;" v-model="form.use_scence" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.use_scence" :key="index" :label="item.value" :value="item.id"></el-option>
+        <el-select style="width: 300px;" v-model="form.use_scene" placeholder="请选择">
+          <el-option v-for="(item, index) in cfg.enum.use_scene" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="卡规格">

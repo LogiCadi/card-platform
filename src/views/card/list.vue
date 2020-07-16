@@ -1,5 +1,29 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-form @submit.native.prevent>
+        <el-select v-model="listQuery.operator" placeholder="运营商" style="width: 200px" class="filter-item" clearable
+          @change="fetchData(1)">
+          <el-option v-for="item in cfg.enum.operator" :key="item.id" :label="item.value" :value="item.id" />
+        </el-select>
+        <el-select v-model="listQuery.agent" placeholder="归属代理商" style="width: 200px" class="filter-item" clearable
+          @change="fetchData(1)">
+          <el-option v-for="item in allAgent" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-select v-model="listQuery.agent" placeholder="地区运营商" style="width: 200px" class="filter-item" clearable
+          @change="fetchData(1)">
+          <el-option v-for="item in cfg.enum.region_operator.filter(e => e.operator_id === listQuery.operator)" :key="item.id"
+            :label="item.value" :value="item.id" />
+        </el-select>
+        <el-input v-model="listQuery.batch" placeholder="卡批次" style="width: 200px;" class="filter-item" />
+        <el-select v-model="listQuery.use_scene" placeholder="应用场景" style="width: 200px" class="filter-item" clearable
+          @change="fetchData(1)">
+          <el-option v-for="item in cfg.enum.use_scene" :key="item.id" :label="item.value" :value="item.id" />
+        </el-select>
+        <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" native-type="submit" @click="fetchData(1);">查询</el-button>
+        <el-button v-waves class="filter-item" type="success" icon="el-icon-plus" @click="$router.push('/card/create')">添加卡片</el-button>
+      </el-form>
+    </div>
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
       <!-- <el-table-column align="center" type="selection" width="70" /> -->
@@ -73,7 +97,10 @@
         total: 0,
         listQuery: {
           page: 1, // 当前页码
-          size: 20 // 每页大小
+          size: 20, // 每页大小
+
+          operator: null,
+
         }
       }
     },
