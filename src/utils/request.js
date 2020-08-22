@@ -33,7 +33,7 @@ service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
@@ -54,11 +54,15 @@ service.interceptors.response.use(
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code >= 200 && res.code < 300) {
         // to re-login
-        MessageBox.confirm('您已经登出，您可以取消停留在此页面，或再次登录', 'Confirm logout', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+        MessageBox.confirm(
+          '您已经登出，您可以取消停留在此页面，或再次登录',
+          'Confirm logout',
+          {
+            confirmButtonText: '重新登录',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
           store.dispatch('user/resetToken').then(() => {
             location.reload()
           })
