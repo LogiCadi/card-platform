@@ -4,21 +4,21 @@
       <el-form @submit.native.prevent>
         <el-select v-model="listQuery.operator" placeholder="运营商" style="width: 200px" class="filter-item" clearable
           @change="fetchData(1)">
-          <el-option v-for="item in cfg.enum.operator" :key="item.id" :label="item.value" :value="item.id" />
+          <el-option v-for="item in $.cfg.enum.operator" :key="item.id" :label="item.value" :value="item.id" />
         </el-select>
         <el-select v-model="listQuery.agent" placeholder="归属代理商" style="width: 200px" class="filter-item" clearable
           @change="fetchData(1)">
-          <el-option v-for="item in allAgent" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option v-for="item in $.allAgent" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
         <el-select v-model="listQuery.agent" placeholder="地区运营商" style="width: 200px" class="filter-item" clearable
           @change="fetchData(1)">
-          <el-option v-for="item in cfg.enum.region_operator.filter(e => e.operator_id === listQuery.operator)" :key="item.id"
+          <el-option v-for="item in $.cfg.enum.region_operator.filter(e => e.operator_id === listQuery.operator)" :key="item.id"
             :label="item.value" :value="item.id" />
         </el-select>
         <el-input v-model="listQuery.batch" placeholder="卡批次" style="width: 200px;" class="filter-item" />
         <el-select v-model="listQuery.use_scene" placeholder="应用场景" style="width: 200px" class="filter-item" clearable
           @change="fetchData(1)">
-          <el-option v-for="item in cfg.enum.use_scene" :key="item.id" :label="item.value" :value="item.id" />
+          <el-option v-for="item in $.cfg.enum.use_scene" :key="item.id" :label="item.value" :value="item.id" />
         </el-select>
         <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" native-type="submit" @click="fetchData(1);">查询</el-button>
         <el-button v-waves class="filter-item" type="success" icon="el-icon-plus" @click="$router.push('/card/create')">添加卡片</el-button>
@@ -37,19 +37,19 @@
 
       <el-table-column label="划拨状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].type">{{ cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].value }}</el-tag>
+          <el-tag :type="$.cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].type">{{ $.cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].value }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="卡片状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].type">{{ cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].value }}</el-tag>
+          <el-tag :type="$.cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].type">{{ $.cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].value }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="实名状态" align="center">
         <template slot-scope="scope">
-          <el-tag :type="cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].type">{{ cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].value }}</el-tag>
+          <el-tag :type="$.cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].type">{{ $.cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].value }}</el-tag>
         </template>
       </el-table-column>
 

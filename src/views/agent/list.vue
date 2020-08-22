@@ -3,7 +3,7 @@
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
       <el-table-column label="上级代理商">
-        <template slot-scope="scope">{{ scope.row.up_agent_id && allAgent.filter(e => e.id === scope.row.up_agent_id)[0].name }}</template>
+        <template slot-scope="scope">{{ scope.row.up_agent_id && $.allAgent.filter(e => e.id === scope.row.up_agent_id)[0].name }}</template>
       </el-table-column>
       <el-table-column label="代理商名称">
         <template slot-scope="scope">{{ scope.row.name }}</template>
@@ -23,7 +23,7 @@
       </el-table-column>
 
       <el-table-column label="客户经理">
-        <template slot-scope="scope">{{ scope.row.custom_manager && allUser.filter(e => e.id === scope.row.custom_manager)[0].realname }}</template>
+        <template slot-scope="scope">{{ scope.row.custom_manager && $.allUser.filter(e => e.id === scope.row.custom_manager)[0].realname }}</template>
       </el-table-column>
     </el-table>
 

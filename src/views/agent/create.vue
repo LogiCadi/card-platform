@@ -3,7 +3,12 @@
     <el-form ref="form" :model="form" label-width="200px">
       <el-form-item label="上级代理商">
         <el-select style="width: 300px;" v-model="form.up_agent_id" placeholder="请选择">
-          <el-option v-for="(item, index) in allAgent" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.allAgent"
+            :key="index"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="代理商名称">
@@ -14,7 +19,12 @@
       </el-form-item>
       <el-form-item label="代理商类型">
         <el-select style="width: 300px;" v-model="form.agent_type" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.agent_type" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.cfg.enum.agent_type"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="出卡收货人姓名">
@@ -43,17 +53,32 @@
       </el-form-item>
       <el-form-item label="代理商级别">
         <el-select style="width: 300px;" v-model="form.agent_level" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.agent_level" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.cfg.enum.agent_level"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="结算对象（不可修改）">
         <el-select style="width: 300px;" v-model="form.settle_target" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.settle_target" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.cfg.enum.settle_target"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="实时分润">
         <el-select style="width: 300px;" v-model="form.shareprofit" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.shareprofit" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.cfg.enum.shareprofit"
+            :key="index"
+            :label="item.value"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="保证金（元）">
@@ -61,11 +86,21 @@
       </el-form-item>
       <el-form-item label="客户经理">
         <el-select style="width: 300px;" v-model="form.custom_manager" placeholder="请选择">
-          <el-option v-for="(item, index) in allUser" :key="index" :label="item.realname" :value="item.id"></el-option>
+          <el-option
+            v-for="(item, index) in $.allUser"
+            :key="index"
+            :label="item.realname"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="代理商简介">
-        <el-input v-model="form.agent_introduction" type="textarea" style="width: 500px;" class="filter-item" />
+        <el-input
+          v-model="form.agent_introduction"
+          type="textarea"
+          style="width: 500px;"
+          class="filter-item"
+        />
       </el-form-item>
 
       <el-form-item>
@@ -77,34 +112,32 @@
 </template>
 
 <script>
-  import { postCreate } from '@/api/agent'
-  export default {
-    data() {
-      return {
-        form: {},
-      }
+import { postCreate } from "@/api/agent";
+export default {
+  data() {
+    return {
+      form: {},
+    };
+  },
+  methods: {
+    async submit() {
+      await postCreate({
+        form: this.form,
+      });
+      this.$.getAllAgent();
+      this.$message({ message: "操作成功！", type: "success" });
+      setTimeout(() => this.$router.go(-1), 500);
     },
-    methods: {
-      async submit() {
-        await postCreate({
-          form: this.form
-        })
-        this.$message({
-          message: '操作成功！',
-          type: 'success'
-        })
-        setTimeout(() => this.$router.push('/agent/list'), 500)
-      }
-    }
-  }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .app-container {
-    padding: 40px 5%;
+.app-container {
+  padding: 40px 5%;
 
-    .line {
-      text-align: center;
-    }
+  .line {
+    text-align: center;
   }
+}
 </style>

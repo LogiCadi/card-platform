@@ -14,7 +14,6 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    console.log(config)
     // do something before request is sent
     config.headers['Content-Type'] = 'text/plain'
     // TOKEN

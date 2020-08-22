@@ -16,6 +16,8 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import global from '@/utils/global'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -35,6 +37,8 @@ Vue.use(ElementUI, { size: Cookies.get('size') || 'medium',  locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$ = global
 
 new Vue({
   el: '#app',
