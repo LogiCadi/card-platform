@@ -8,10 +8,10 @@
     <!-- 表格内容 -->
     <el-table v-loading="listLoading" :data="list" element-loading-text="加载中..." border fit highlight-current-row>
       <el-table-column align="center" label="运营商">
-        <template slot-scope="scope">{{ cfg.enum.operator.filter(e => e.id === scope.row.operator)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.operator.filter(e => e.id === scope.row.operator)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="地区运营商">
-        <template slot-scope="scope">{{ cfg.enum.region_operator.filter(e => e.id === scope.row.region_operator)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.region_operator.filter(e => e.id === scope.row.region_operator)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="套餐名字">
         <template slot-scope="scope">{{ scope.row.name }}</template>
@@ -32,10 +32,10 @@
         <template slot-scope="scope">{{ scope.row.msg_count }}</template>
       </el-table-column>
       <el-table-column align="center" label="是否上架">
-        <template slot-scope="scope">{{ cfg.enum.is_added.filter(e => e.id === scope.row.is_added)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.is_added.filter(e => e.id === scope.row.is_added)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="是否推荐">
-        <template slot-scope="scope">{{ cfg.enum.recommend.filter(e => e.id === scope.row.recommend)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.recommend.filter(e => e.id === scope.row.recommend)[0].value }}</template>
       </el-table-column>
 
     </el-table>

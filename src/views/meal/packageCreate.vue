@@ -4,12 +4,12 @@
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="运营商">
         <el-select style="width: 300px;" v-model="form.operator" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.operator" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.operator" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="地区运营商">
         <el-select style="width: 300px;" v-model="form.region_operator" placeholder="请选择">
-          <el-option v-if="item.operator_id === form.operator" v-for="(item, index) in cfg.enum.region_operator" :key="index"
+          <el-option v-if="item.operator_id === form.operator" v-for="(item, index) in $.cfg.enum.region_operator" :key="index"
             :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
@@ -33,12 +33,12 @@
       </el-form-item>
       <el-form-item label="是否上架">
         <el-select style="width: 300px;" v-model="form.is_added" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.is_added" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.is_added" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="是否推荐">
         <el-select style="width: 300px;" v-model="form.recommend" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.recommend" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.recommend" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
 

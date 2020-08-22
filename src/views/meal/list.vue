@@ -20,7 +20,7 @@
         <template slot-scope="scope">{{ scope.row.meal_cost }}</template>
       </el-table-column>
       <el-table-column align="center" label="套餐类型">
-        <template slot-scope="scope">{{ cfg.enum.meal_type.filter(e => e.id == scope.row.meal_type)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.meal_type.filter(e => e.id == scope.row.meal_type)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="套餐周期(月)">
         <template slot-scope="scope">{{ scope.row.meal_period }}</template>
@@ -33,10 +33,10 @@
       </el-table-column>
 
       <el-table-column align="center" label="结算类型">
-        <template slot-scope="scope">{{ cfg.enum.settle_type.filter(e => e.id == scope.row.settle_type)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.settle_type.filter(e => e.id == scope.row.settle_type)[0].value }}</template>
       </el-table-column>
       <el-table-column align="center" label="购买限制">
-        <template slot-scope="scope">{{ cfg.enum.buy_limit.filter(e => e.id == scope.row.buy_limit)[0].value }}</template>
+        <template slot-scope="scope">{{ $.cfg.enum.buy_limit.filter(e => e.id == scope.row.buy_limit)[0].value }}</template>
       </el-table-column>
     </el-table>
 

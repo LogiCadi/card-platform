@@ -5,7 +5,7 @@
       <h3>分配设置</h3>
       <el-form-item label="下级代理商">
         <el-select style="width: 300px;" v-model="form.down_agent_id" placeholder="请选择">
-          <el-option v-for="(item, index) in allAgent" :key="index" :label="item.name" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.allAgent" :key="index" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="下级成本价格">
@@ -39,7 +39,7 @@
       </el-form-item>
       <el-form-item label="套餐类型">
         <el-select style="width: 300px;" v-model="form.meal_type" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.meal_type" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.meal_type" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="套餐周期(月)">
@@ -65,12 +65,12 @@
       </el-form-item>
       <el-form-item label="结算类型">
         <el-select style="width: 300px;" v-model="form.settle_type" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.settle_type" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.settle_type" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="购买限制">
         <el-select style="width: 300px;" v-model="form.buy_limit" placeholder="请选择">
-          <el-option v-for="(item, index) in cfg.enum.buy_limit" :key="index" :label="item.value" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in $.cfg.enum.buy_limit" :key="index" :label="item.value" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
 
