@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { size: Cookies.get('size') || 'medium',  locale })
+Vue.use(ElementUI, { size: Cookies.get('size') || 'medium', locale })
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
