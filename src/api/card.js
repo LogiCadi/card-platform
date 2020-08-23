@@ -15,3 +15,18 @@ export function postCardInput(data) {
     data
   })
 }
+
+// 卡片划拨
+export function postCardAssign(data) {
+  return request({
+    url: '/card/cardAssign',
+    data
+  })
+}
+// 卡片数
+export function getAreaCount(data) {
+  return request({
+    url: '/card/cardCount',
+    data
+  })
+}

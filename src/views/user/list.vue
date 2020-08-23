@@ -26,12 +26,14 @@
       <el-table-column align="center" label="所属代理商">
         <template
           slot-scope="scope"
-        >{{ scope.row.agent && $.allAgent.filter(e => e.id === scope.row.agent)[0].name }}</template>
+        >{{ scope.row.agent && $.allAgent.filter(e => e.id === scope.row.agent)[0].name || '-' }}</template>
       </el-table-column>
       <el-table-column align="center" label="角色">
-        <template
-          slot-scope="scope"
-        >{{ $.cfg.enum.role.filter(e => { return e.id === scope.row.role })[0].value }}</template>
+        <template slot-scope="scope">
+          <el-tag
+            :type="$.cfg.enum.role.filter(e => { return e.id === scope.row.role })[0].type"
+          >{{ $.cfg.enum.role.filter(e => { return e.id === scope.row.role })[0].value }}</el-tag>
+        </template>
       </el-table-column>
       <el-table-column align="center" label="最后登录时间">
         <template slot-scope="scope">{{ scope.row.least_login }}</template>

@@ -1,4 +1,5 @@
 <template>
+  <!-- 卡片录入 -->
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="运营商">
