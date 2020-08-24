@@ -1,5 +1,5 @@
 <template>
-  <!-- 卡片划拨 -->
+  <!-- 绑定套餐 -->
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="划拨给">
