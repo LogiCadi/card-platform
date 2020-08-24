@@ -110,6 +110,14 @@ export const asyncRoutes = [
           title: "卡片划拨",
           icon: "peoples"
         }
+      },
+      {
+        path: "bindmeal",
+        component: () => import("@/views/card/bindmeal"),
+        meta: {
+          title: "套餐绑定",
+          icon: "peoples"
+        }
       }
     ]
   },
