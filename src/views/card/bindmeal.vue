@@ -38,8 +38,23 @@
         <el-button @click="getAreaCount" size="small" type="primary">查询</el-button>
       </el-form-item>
 
-
-      
+      <el-form-item label="年费套餐">
+        <el-select
+          style="width: 300px;"
+          filterable
+          remote
+          :remote-method="findMeals.bind(this, 'year')"
+          v-model="form.agent"
+          placeholder="请选择"
+        >
+          <el-option
+            v-for="(item, index) in meals.year"
+            :key="index"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="submit">确认划拨</el-button>
@@ -51,13 +66,19 @@
 
 <script>
 import { postCardAssign, getAreaCount } from "@/api/card";
+import { getList as getMealList } from "@/api/meal";
 export default {
   data() {
     return {
       form: {},
+      meals: {},
     };
   },
   methods: {
+    async findMeals(type, words) {
+      const res = await getMealList({ words });
+      this.meals[type] = res.list;
+    },
     async getAreaCount() {
       const res = await getAreaCount({
         form: this.form,
