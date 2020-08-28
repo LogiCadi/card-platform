@@ -1,10 +1,10 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
 
 /* Layout */
-import Layout from "@/layout";
+import Layout from '@/layout'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -32,45 +32,45 @@ import Layout from "@/layout";
  */
 export const constantRoutes = [
   {
-    path: "/redirect",
+    path: '/redirect',
     component: Layout,
     hidden: true,
     children: [
       {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index")
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index')
       }
     ]
   },
   {
-    path: "/login",
-    component: () => import("@/views/login/index"),
+    path: '/login',
+    component: () => import('@/views/login/index'),
     hidden: true
   },
 
   {
-    path: "/404",
-    component: () => import("@/views/404"),
+    path: '/404',
+    component: () => import('@/views/404'),
     hidden: true
   },
 
   {
-    path: "/",
+    path: '/',
     component: Layout,
-    redirect: "/dashboard",
+    redirect: '/dashboard',
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
-        component: () => import("@/views/dashboard/index"),
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
         meta: {
-          title: "首页",
-          icon: "dashboard"
+          title: '首页',
+          icon: 'dashboard'
         }
       }
     ]
   }
-];
+]
 
 /**
  * asyncRoutes
@@ -78,167 +78,176 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: "/card",
-    component: () => import("@/layout"),
-    redirect: "noRedirect",
+    path: '/card',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
     alwaysShow: true,
     meta: {
-      title: "卡片管理",
-      icon: "documentation"
+      title: '卡片管理',
+      icon: 'documentation'
     },
     children: [
       {
-        path: "list",
-        component: () => import("@/views/card/list"),
+        path: 'list',
+        component: () => import('@/views/card/list'),
         meta: {
-          title: "卡片列表",
-          icon: "peoples"
+          title: '卡片列表',
+          icon: 'peoples'
         }
       },
       {
-        path: "create",
-        component: () => import("@/views/card/create"),
+        path: 'create',
+        component: () => import('@/views/card/create'),
         meta: {
-          title: "卡片录入",
-          icon: "peoples"
+          title: '卡片录入',
+          icon: 'peoples'
         }
       },
       {
-        path: "assign",
-        component: () => import("@/views/card/assign"),
+        path: 'assign',
+        component: () => import('@/views/card/assign'),
         meta: {
-          title: "卡片划拨",
-          icon: "peoples"
+          title: '卡片划拨',
+          icon: 'peoples'
         }
       },
       {
-        path: "bindmeal",
-        component: () => import("@/views/card/bindmeal"),
+        path: 'bindmeal',
+        component: () => import('@/views/card/bindmeal'),
         meta: {
-          title: "套餐绑定",
-          icon: "peoples"
+          title: '套餐绑定',
+          icon: 'peoples'
+        }
+      },
+      {
+        path: 'info/:id',
+        component: () => import('@/views/card/info'),
+        hidden: true,
+        meta: {
+          title: '卡片详情',
+          icon: 'peoples'
         }
       }
     ]
   },
 
   {
-    path: "/agent",
-    component: () => import("@/layout"),
-    redirect: "noRedirect",
+    path: '/agent',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
     alwaysShow: true,
     meta: {
-      title: "代理商管理",
-      icon: "documentation"
+      title: '代理商管理',
+      icon: 'documentation'
     },
     children: [
       {
-        path: "list",
-        component: () => import("@/views/agent/list"),
+        path: 'list',
+        component: () => import('@/views/agent/list'),
         meta: {
-          title: "代理商列表",
-          icon: "peoples"
+          title: '代理商列表',
+          icon: 'peoples'
         }
       },
       {
-        path: "create",
-        component: () => import("@/views/agent/create"),
+        path: 'create',
+        component: () => import('@/views/agent/create'),
         meta: {
-          title: "添加代理商",
-          icon: "peoples"
+          title: '添加代理商',
+          icon: 'peoples'
         }
       }
     ]
   },
 
   {
-    path: "/meal",
-    component: () => import("@/layout"),
-    redirect: "noRedirect",
+    path: '/meal',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
     alwaysShow: true,
     meta: {
-      title: "套餐管理",
-      icon: "documentation"
+      title: '套餐管理',
+      icon: 'documentation'
     },
     children: [
       {
-        path: "list",
-        component: () => import("@/views/meal/list"),
+        path: 'list',
+        component: () => import('@/views/meal/list'),
         meta: {
-          title: "套餐列表",
-          icon: "peoples"
+          title: '套餐列表',
+          icon: 'peoples'
         }
       },
       {
-        path: "create",
-        component: () => import("@/views/meal/create"),
+        path: 'create',
+        component: () => import('@/views/meal/create'),
         hidden: true,
         meta: {
-          title: "添加套餐",
-          icon: "peoples"
+          title: '添加套餐',
+          icon: 'peoples'
         }
       },
       {
-        path: "allot",
-        component: () => import("@/views/meal/allot"),
+        path: 'allot',
+        component: () => import('@/views/meal/allot'),
         meta: {
-          title: "分配套餐",
-          icon: "peoples"
+          title: '分配套餐',
+          icon: 'peoples'
         }
       },
       {
-        path: "allotSetting/:id",
-        component: () => import("@/views/meal/allotSetting"),
+        path: 'allotSetting/:id',
+        component: () => import('@/views/meal/allotSetting'),
         hidden: true,
         meta: {
-          title: "分配设置",
-          icon: "peoples"
+          title: '分配设置',
+          icon: 'peoples'
         }
       },
       {
-        path: "package",
-        component: () => import("@/views/meal/package"),
+        path: 'package',
+        component: () => import('@/views/meal/package'),
         meta: {
-          title: "加油包",
-          icon: "peoples"
+          title: '加油包',
+          icon: 'peoples'
         }
       },
       {
-        path: "packageCreate",
-        component: () => import("@/views/meal/packageCreate"),
+        path: 'packageCreate',
+        component: () => import('@/views/meal/packageCreate'),
         hidden: true,
         meta: {
-          title: "添加加油包",
-          icon: "peoples"
+          title: '添加加油包',
+          icon: 'peoples'
         }
       }
     ]
   },
 
   {
-    path: "/user",
-    component: () => import("@/layout"),
-    redirect: "noRedirect",
+    path: '/user',
+    component: () => import('@/layout'),
+    redirect: 'noRedirect',
     alwaysShow: true,
     meta: {
-      title: "用户管理",
-      icon: "documentation"
+      title: '用户管理',
+      icon: 'documentation'
     },
     children: [
       {
-        path: "list",
-        component: () => import("@/views/user/list"),
+        path: 'list',
+        component: () => import('@/views/user/list'),
         meta: {
-          title: "用户列表",
-          icon: "peoples"
+          title: '用户列表',
+          icon: 'peoples'
         }
       },
       {
-        path: "create",
-        component: () => import("@/views/user/create"),
+        path: 'create',
+        component: () => import('@/views/user/create'),
         meta: {
-          title: "添加用户",
-          icon: "peoples"
+          title: '添加用户',
+          icon: 'peoples'
         }
       }
     ]
@@ -246,11 +255,11 @@ export const asyncRoutes = [
 
   // 404 page must be placed at the end !!!
   {
-    path: "*",
-    redirect: "/404",
+    path: '*',
+    redirect: '/404',
     hidden: true
   }
-];
+]
 
 const createRouter = () =>
   new Router({
@@ -259,14 +268,14 @@ const createRouter = () =>
       y: 0
     }),
     routes: constantRoutes
-  });
+  })
 
-const router = createRouter();
+const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter();
-  router.matcher = newRouter.matcher; // reset router
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
 }
 
-export default router;
+export default router

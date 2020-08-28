@@ -92,7 +92,12 @@
     >
       <!-- <el-table-column align="center" type="selection" width="70" /> -->
       <el-table-column align="center" label="ICCID">
-        <template slot-scope="scope">{{ scope.row.iccid }}</template>
+        <template slot-scope="scope">
+          <el-link
+            type="primary"
+            @click="$router.push(`/card/info/${scope.row.id}`)"
+          >{{ scope.row.iccid }}</el-link>
+        </template>
       </el-table-column>
 
       <el-table-column label="业务号码" align="center">
