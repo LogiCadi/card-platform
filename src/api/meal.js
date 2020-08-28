@@ -15,3 +15,11 @@ export function postSave(data) {
     data
   })
 }
+
+// 给卡片绑定套餐
+export function postBindMeal(data) {
+  return request({
+    url: '/meal/bind',
+    data
+  })
+}

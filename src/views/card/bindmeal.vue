@@ -38,17 +38,17 @@
         <el-button @click="getAreaCount" size="small" type="primary">查询</el-button>
       </el-form-item>
 
-      <el-form-item label="年费套餐">
+      <el-form-item v-for="(item, index) in mealOptions" :label="item.name" :key="index">
         <el-select
           style="width: 300px;"
           filterable
           remote
-          :remote-method="findMeals.bind(this, 'year')"
-          v-model="form.agent"
-          placeholder="请选择"
+          :remote-method="findMeals.bind(this, item.code)"
+          v-model="form[item.code]"
+          placeholder="填写查找套餐"
         >
           <el-option
-            v-for="(item, index) in meals.year"
+            v-for="(item, index) in meals[item.code]"
             :key="index"
             :label="item.name"
             :value="item.id"
@@ -57,7 +57,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submit">确认划拨</el-button>
+        <el-button type="primary" @click="submit">确认</el-button>
         <!-- <el-button>取消</el-button> -->
       </el-form-item>
     </el-form>
@@ -65,19 +65,25 @@
 </template>
 
 <script>
-import { postCardAssign, getAreaCount } from "@/api/card";
-import { getList as getMealList } from "@/api/meal";
+import { getAreaCount } from "@/api/card";
+import { getList as getMealList, postBindMeal } from "@/api/meal";
 export default {
   data() {
     return {
       form: {},
+      mealOptions: [
+        { name: "年套餐", code: "year" },
+        { name: "半年套餐", code: "half_year" },
+        { name: "季套餐", code: "season" },
+        { name: "月套餐", code: "month" },
+      ],
       meals: {},
     };
   },
   methods: {
     async findMeals(type, words) {
       const res = await getMealList({ words });
-      this.meals[type] = res.list;
+      this.$set(this.meals, type, res.data.list);
     },
     async getAreaCount() {
       const res = await getAreaCount({
@@ -86,7 +92,7 @@ export default {
       this.$message({ message: `查询到${res.data}条卡片数据` });
     },
     async submit() {
-      await postCardAssign({
+      await postBindMeal({
         form: this.form,
       });
       this.$message({ message: "操作成功！", type: "success" });
