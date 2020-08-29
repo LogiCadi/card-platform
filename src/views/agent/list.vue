@@ -21,6 +21,9 @@
       <el-table-column label="联系邮箱">
         <template slot-scope="scope">{{ scope.row.contact_email }}</template>
       </el-table-column>
+      <el-table-column label="分润">
+        <template slot-scope="scope">{{ scope.row.shareprofit }}</template>
+      </el-table-column>
 
       <el-table-column label="客户经理">
         <template slot-scope="scope">{{ scope.row.custom_manager && $.allUser.filter(e => e.id === scope.row.custom_manager)[0].realname }}</template>

@@ -39,3 +39,11 @@ export function getInfo(data) {
     data
   });
 }
+
+// 卡片激活
+export function cardActive(data) {
+  return request({
+    url: "/card/cardActive",
+    data
+  });
+}

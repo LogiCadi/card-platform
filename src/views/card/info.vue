@@ -4,7 +4,7 @@
     <el-card class="box-card">
       <div class="title">卡片操作</div>
       <el-row class="row">
-        <el-button type="primary">模拟激活</el-button>
+        <el-button type="primary">停机</el-button>
       </el-row>
     </el-card>
     <el-card class="box-card">
@@ -28,14 +28,23 @@
       <div class="title">可销售套餐</div>
       <el-table :data="info.meals" style="width: 100%">
         <el-table-column prop="meal.name" label="套餐名称" width="180"></el-table-column>
-        <el-table-column prop="meal.meal_price" label="套餐成本" width="180"></el-table-column>
+        <el-table-column prop="meal.meal_price" label="套餐售价" width="180"></el-table-column>
+        <el-table-column prop="meal.meal_cost" label="套餐成本" width="180"></el-table-column>
+        <el-table-column label="操作" width="180">
+          <el-button
+            slot-scope="scope"
+            type="primary"
+            size="mini"
+            @click="activeCard(scope.row.meal_id)"
+          >模拟激活</el-button>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
 </template>
 
 <script>
-import { getInfo } from "@/api/card";
+import { getInfo, cardActive } from "@/api/card";
 export default {
   data() {
     return {
@@ -48,6 +57,14 @@ export default {
     this.fetchData();
   },
   methods: {
+    async activeCard(meal_id) {
+      await cardActive({
+        card_id: this.id,
+        meal_id: meal_id,
+      });
+      this.$message({ type: "success", message: "激活成功" });
+      this.fetchData();
+    },
     async fetchData() {
       const res = await getInfo({ id: this.id });
       this.info = res.data;
