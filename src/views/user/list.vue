@@ -18,7 +18,7 @@
       <el-table-column align="center" label="性别">
         <template
           slot-scope="scope"
-        >{{ $.cfg.enum.gender.filter(e => { return e.id === scope.row.gender })[0].value }}</template>
+        >{{ $.cfg.enum.gender.find(e => { return e.id === scope.row.gender }).value }}</template>
       </el-table-column>
       <el-table-column align="center" label="email">
         <template slot-scope="scope">{{ scope.row.email }}</template>
@@ -26,7 +26,7 @@
       <el-table-column align="center" label="所属代理商">
         <template
           slot-scope="scope"
-        >{{ scope.row.agent && $.allAgent.filter(e => e.id === scope.row.agent)[0].name || '-' }}</template>
+        >{{ scope.row.agent && $.allAgent.find(e => e.id === scope.row.agent).name || '-' }}</template>
       </el-table-column>
       <el-table-column align="center" label="角色">
         <template slot-scope="scope">

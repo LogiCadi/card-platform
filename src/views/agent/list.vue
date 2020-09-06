@@ -25,9 +25,6 @@
         <template slot-scope="scope">{{ scope.row.shareprofit }}</template>
       </el-table-column>
 
-      <el-table-column label="客户经理">
-        <template slot-scope="scope">{{ scope.row.custom_manager && $.allUser.filter(e => e.id === scope.row.custom_manager)[0].realname }}</template>
-      </el-table-column>
     </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.size" @pagination="fetchData" />
