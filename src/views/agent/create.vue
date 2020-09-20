@@ -4,7 +4,7 @@
       <el-form-item label="上级代理商">
         <el-select style="width: 300px;" v-model="form.up_agent_id" placeholder="请选择">
           <el-option
-            v-for="(item, index) in $.allAgent"
+            v-for="(item, index) in $.allAgent.filter(e => e.id === agent.id)"
             :key="index"
             :label="item.name"
             :value="item.id"
@@ -50,7 +50,7 @@
       <el-form-item label="保证金（元）">
         <el-input v-model="form.margin" style="width: 500px;" class="filter-item" />
       </el-form-item>
-      
+
       <!-- <el-form-item label="代理商简介">
         <el-input
           v-model="form.agent_introduction"
@@ -58,7 +58,7 @@
           style="width: 500px;"
           class="filter-item"
         />
-      </el-form-item> -->
+      </el-form-item>-->
 
       <el-form-item>
         <el-button type="primary" @click="submit">添加</el-button>
@@ -70,11 +70,15 @@
 
 <script>
 import { postCreate } from "@/api/agent";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       form: {},
     };
+  },
+  computed: {
+    ...mapGetters(["agent"]),
   },
   methods: {
     async submit() {

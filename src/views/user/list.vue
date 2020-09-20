@@ -9,9 +9,6 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="用户名">
-        <template slot-scope="scope">{{ scope.row.username }}</template>
-      </el-table-column>
       <el-table-column align="center" label="真实姓名">
         <template slot-scope="scope">{{ scope.row.realname }}</template>
       </el-table-column>
@@ -31,8 +28,8 @@
       <el-table-column align="center" label="角色">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.role.filter(e => { return e.id === scope.row.role })[0].type"
-          >{{ $.cfg.enum.role.filter(e => { return e.id === scope.row.role })[0].value }}</el-tag>
+            :type="$.cfg.enum.role.find(e => { return e.id === scope.row.role }).type"
+          >{{ $.cfg.enum.role.find(e => { return e.id === scope.row.role }).value }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column align="center" label="最后登录时间">

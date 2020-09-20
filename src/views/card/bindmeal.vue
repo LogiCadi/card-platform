@@ -2,7 +2,7 @@
   <!-- 绑定套餐 -->
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="150px">
-      <el-form-item label="代理商">
+      <!-- <el-form-item label="代理商">
         <el-select style="width: 300px;" v-model="form.agent" placeholder="请选择">
           <el-option
             v-for="(item, index) in $.allAgent"
@@ -11,7 +11,7 @@
             :value="item.id"
           ></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item>-->
 
       <!-- <el-form-item label="划拨模式">
         <el-select style="width: 300px;" v-model="form.card_selected_mode" placeholder="请选择">
@@ -24,7 +24,7 @@
         </el-select>
       </el-form-item>-->
 
-      <el-form-item label="业务号码段">
+      <!-- <el-form-item label="业务号码段">
         <el-col :span="6">
           <el-input v-model="form.business_code_start" />
         </el-col>
@@ -32,28 +32,36 @@
         <el-col :span="6">
           <el-input v-model="form.business_code_end" />
         </el-col>
-      </el-form-item>
+      </el-form-item>-->
 
+      <el-form-item label="卡批次">
+        <el-col :span="6">
+          <el-input v-model="form.batch" />
+        </el-col>
+      </el-form-item>
       <el-form-item label="卡片数">
         <el-button @click="getAreaCount" size="small" type="primary">查询</el-button>
       </el-form-item>
 
       <el-form-item v-for="(item, index) in mealOptions" :label="item.name" :key="index">
-        <el-select
-          style="width: 300px;"
-          filterable
-          remote
-          :remote-method="findMeals.bind(this, item.code)"
-          v-model="form[item.code]"
-          placeholder="填写查找套餐"
-        >
-          <el-option
-            v-for="(item, index) in meals[item.code]"
-            :key="index"
-            :label="item.name"
-            :value="item.id"
-          ></el-option>
-        </el-select>
+        <el-col :span="6">
+          <el-select
+            style="width: 300px;"
+            filterable
+            v-model="form[item.code]"
+            placeholder="填写查找套餐"
+          >
+            <el-option
+              v-for="(item, index) in meals"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-col>
+        <!-- <el-col :span="4">
+          <el-input v-model="form.business_code_start" placeholder="成本价" />
+        </el-col>-->
       </el-form-item>
 
       <el-form-item>
@@ -80,10 +88,13 @@ export default {
       meals: {},
     };
   },
+  created() {
+    this.getMealList();
+  },
   methods: {
-    async findMeals(type, words) {
-      const res = await getMealList({ words });
-      this.$set(this.meals, type, res.data.list);
+    async getMealList() {
+      const res = await getMealList();
+      this.meals = res.data.list;
     },
     async getAreaCount() {
       const res = await getAreaCount({

@@ -32,6 +32,13 @@ export function getAreaCount(data) {
   });
 }
 
+export function getMeals(data) {
+  return request({
+    url: "/card/getMeals",
+    data
+  });
+}
+
 // 卡片详情
 export function getInfo(data) {
   return request({

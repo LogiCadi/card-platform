@@ -28,16 +28,15 @@
       <div class="title">可销售套餐</div>
       <el-table :data="info.meals" style="width: 100%">
         <el-table-column prop="meal.name" label="套餐名称" width="180"></el-table-column>
+
+        <el-table-column
+          v-for="(item, index) in info.meals[0].tier"
+          :key="index"
+          :label="item.name + '成本价'"
+          width="180"
+        >{{ item.cost }}</el-table-column>
+
         <el-table-column prop="meal.meal_price" label="套餐售价" width="180"></el-table-column>
-        <el-table-column prop="meal.meal_cost" label="套餐成本" width="180"></el-table-column>
-        <el-table-column label="操作" width="180">
-          <el-button
-            slot-scope="scope"
-            type="primary"
-            size="mini"
-            @click="activeCard(scope.row.meal_id)"
-          >模拟激活</el-button>
-        </el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -57,16 +56,18 @@ export default {
     this.fetchData();
   },
   methods: {
-    async activeCard(meal_id) {
-      await cardActive({
-        card_id: this.id,
-        meal_id: meal_id,
-      });
-      this.$message({ type: "success", message: "激活成功" });
-      this.fetchData();
-    },
     async fetchData() {
       const res = await getInfo({ id: this.id });
+
+      res.data.meals = res.data.meals.map((e) => {
+        e.tier = JSON.parse(e.tier).map((t) => ({
+          ...t,
+          name: this.$.allAgent.find((e) => e.id == t.agent_id).name,
+        }));
+
+        return e;
+      });
+      console.log(res.data);
       this.info = res.data;
     },
   },

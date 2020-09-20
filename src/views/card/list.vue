@@ -107,24 +107,24 @@
       <el-table-column label="划拨状态" align="center">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].type"
-          >{{ $.cfg.enum.assign_status.filter(e => e.id === scope.row.assign_status )[0].value }}</el-tag>
+            :type="$.cfg.enum.assign_status.find(e => e.id === scope.row.assign_status ).type"
+          >{{ $.cfg.enum.assign_status.find(e => e.id === scope.row.assign_status ).value }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="卡片状态" align="center">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].type"
-          >{{ $.cfg.enum.card_status.filter(e => e.id === scope.row.card_status )[0].value }}</el-tag>
+            :type="$.cfg.enum.card_status.find(e => e.id === scope.row.card_status ).type"
+          >{{ $.cfg.enum.card_status.find(e => e.id === scope.row.card_status ).value }}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="实名状态" align="center">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].type"
-          >{{ $.cfg.enum.real_name_auth.filter(e => e.id === scope.row.real_name_auth )[0].value }}</el-tag>
+            :type="$.cfg.enum.real_name_auth.find(e => e.id === scope.row.real_name_auth ).type"
+          >{{ $.cfg.enum.real_name_auth.find(e => e.id === scope.row.real_name_auth ).value }}</el-tag>
         </template>
       </el-table-column>
 
@@ -147,7 +147,7 @@
       <el-table-column label="归属代理商" align="center">
         <template
           slot-scope="scope"
-        >{{ scope.row.agent && $.allAgent.filter(e => e.id === scope.row.agent)[0].name || '-' }}</template>
+        >{{ scope.row.agent && $.allAgent.find(e => e.id === scope.row.agent).name || '-' }}</template>
       </el-table-column>
     </el-table>
 
