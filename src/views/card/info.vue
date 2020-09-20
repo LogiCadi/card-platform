@@ -10,15 +10,15 @@
     <el-card class="box-card">
       <div class="title">卡片详情</div>
       <el-row class="row">
-        <el-col span="8">
+        <el-col :span="8">
           <span class="label">ICCID</span>
           <span class="content">{{ info.iccid }}</span>
         </el-col>
-        <el-col span="8">
+        <el-col :span="8">
           <span class="label">业务号码</span>
           <span class="content">{{ info.business_code }}</span>
         </el-col>
-        <el-col span="8">
+        <el-col :span="8">
           <span class="label">激活时间</span>
           <span class="content">{{ info.first_active_time }}</span>
         </el-col>
@@ -27,16 +27,15 @@
     <el-card class="box-card">
       <div class="title">可销售套餐</div>
       <el-table :data="info.meals" style="width: 100%">
-        <el-table-column prop="meal.name" label="套餐名称" width="180"></el-table-column>
+        <el-table-column prop="meal.name" label="套餐名称"></el-table-column>
 
         <el-table-column
-          v-for="(item, index) in info.meals[0].tier"
+          v-for="(item, index) in info.meals && info.meals[0].tier"
           :key="index"
           :label="item.name + '成本价'"
-          width="180"
         >{{ item.cost }}</el-table-column>
 
-        <el-table-column prop="meal.meal_price" label="套餐售价" width="180"></el-table-column>
+        <el-table-column prop="meal.meal_price" label="套餐售价"></el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -67,7 +66,6 @@ export default {
 
         return e;
       });
-      console.log(res.data);
       this.info = res.data;
     },
   },
