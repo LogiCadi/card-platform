@@ -3,66 +3,30 @@
   <div class="app-container">
     <div class="filter-container">
       <el-form @submit.native.prevent>
-        <el-select
-          v-model="listQuery.operator"
-          placeholder="运营商"
-          style="width: 200px"
-          class="filter-item"
-          clearable
-          @change="fetchData(1)"
-        >
-          <el-option
-            v-for="item in $.cfg.enum.operator"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
-        <el-select
-          v-model="listQuery.agent"
-          placeholder="归属代理商"
-          style="width: 200px"
-          class="filter-item"
-          clearable
-          @change="fetchData(1)"
-        >
-          <el-option v-for="item in $.allAgent" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
-        <el-select
-          v-model="listQuery.agent"
-          placeholder="地区运营商"
-          style="width: 200px"
-          class="filter-item"
-          clearable
-          @change="fetchData(1)"
-        >
-          <el-option
-            v-for="item in $.cfg.enum.region_operator.filter(e => e.operator_id === listQuery.operator)"
-            :key="item.id"
-            :label="item.value"
-            :value="item.id"
-          />
-        </el-select>
         <el-input
-          v-model="listQuery.batch"
-          placeholder="卡批次"
-          style="width: 200px;"
+          placeholder="业务号码"
+          style="width: 200px"
           class="filter-item"
+          v-model="listQuery.business_code"
+        />
+        <el-input
+          placeholder="iccid"
+          style="width: 200px"
+          class="filter-item"
+          v-model="listQuery.iccid"
         />
         <el-select
-          v-model="listQuery.use_scene"
-          placeholder="应用场景"
-          style="width: 200px"
-          class="filter-item"
+          style="width: 300px"
+          v-model="listQuery.agent"
+          placeholder="所属代理商"
           clearable
-          @change="fetchData(1)"
         >
           <el-option
-            v-for="item in $.cfg.enum.use_scene"
-            :key="item.id"
-            :label="item.value"
+            v-for="(item, index) in $.allAgent"
+            :key="index"
+            :label="item.name"
             :value="item.id"
-          />
+          ></el-option>
         </el-select>
         <el-button
           v-waves
@@ -70,15 +34,17 @@
           type="primary"
           icon="el-icon-search"
           native-type="submit"
-          @click="fetchData(1);"
-        >查询</el-button>
+          @click="fetchData(1)"
+          >查询</el-button
+        >
         <el-button
           v-waves
           class="filter-item"
           type="success"
           icon="el-icon-plus"
           @click="$router.push('/card/create')"
-        >添加卡片</el-button>
+          >添加卡片</el-button
+        >
       </el-form>
     </div>
     <!-- 表格内容 -->
@@ -89,6 +55,7 @@
       border
       fit
       highlight-current-row
+      @sort-change="sortChange"
     >
       <!-- <el-table-column align="center" type="selection" width="70" /> -->
       <el-table-column align="center" label="ICCID">
@@ -96,7 +63,8 @@
           <el-link
             type="primary"
             @click="$router.push(`/card/info/${scope.row.id}`)"
-          >{{ scope.row.iccid }}</el-link>
+            >{{ scope.row.iccid }}</el-link
+          >
         </template>
       </el-table-column>
 
@@ -107,37 +75,78 @@
       <el-table-column label="划拨状态" align="center">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.assign_status.find(e => e.id === scope.row.assign_status ).type"
-          >{{ $.cfg.enum.assign_status.find(e => e.id === scope.row.assign_status ).value }}</el-tag>
+            :type="
+              $.cfg.enum.assign_status.find(
+                (e) => e.id === scope.row.assign_status
+              ).type
+            "
+            >{{
+              $.cfg.enum.assign_status.find(
+                (e) => e.id === scope.row.assign_status
+              ).value
+            }}</el-tag
+          >
         </template>
       </el-table-column>
 
-      <el-table-column label="卡片状态" align="center">
+      <el-table-column
+        label="卡片状态"
+        prop="card_status"
+        align="center"
+        sortable="custom"
+      >
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.card_status.find(e => e.id === scope.row.card_status ).type"
-          >{{ $.cfg.enum.card_status.find(e => e.id === scope.row.card_status ).value }}</el-tag>
+            :type="
+              $.cfg.enum.card_status.find((e) => e.id === scope.row.card_status)
+                .type
+            "
+            >{{
+              $.cfg.enum.card_status.find((e) => e.id === scope.row.card_status)
+                .value
+            }}</el-tag
+          >
         </template>
       </el-table-column>
 
       <el-table-column label="实名状态" align="center">
         <template slot-scope="scope">
           <el-tag
-            :type="$.cfg.enum.real_name_auth.find(e => e.id === scope.row.real_name_auth ).type"
-          >{{ $.cfg.enum.real_name_auth.find(e => e.id === scope.row.real_name_auth ).value }}</el-tag>
+            :type="
+              $.cfg.enum.real_name_auth.find(
+                (e) => e.id === scope.row.real_name_auth
+              ).type
+            "
+            >{{
+              $.cfg.enum.real_name_auth.find(
+                (e) => e.id === scope.row.real_name_auth
+              ).value
+            }}</el-tag
+          >
         </template>
       </el-table-column>
 
-      <el-table-column label="激活时间" align="center">
-        <template slot-scope="scope">{{ scope.row.first_active_time }}</template>
+      <el-table-column
+        label="激活时间"
+        align="center"
+        prop="first_active_time"
+        sortable="custom"
+      >
+        <template slot-scope="scope">{{
+          scope.row.first_active_time
+        }}</template>
       </el-table-column>
 
       <el-table-column label="到期时间" align="center">
-        <template slot-scope="scope">{{ scope.row.first_active_time }}</template>
+        <template slot-scope="scope">{{
+          scope.row.end_time
+        }}</template>
       </el-table-column>
 
       <el-table-column label="已用流量" width="120" align="center">
-        <template slot-scope="scope">{{ scope.row.used_flow_size + 'MB' }}</template>
+        <template slot-scope="scope">{{
+          scope.row.used_flow_size + "MB"
+        }}</template>
       </el-table-column>
 
       <el-table-column label="卡批次" align="center">
@@ -145,14 +154,16 @@
       </el-table-column>
 
       <el-table-column label="归属代理商" align="center">
-        <template
-          slot-scope="scope"
-        >{{ scope.row.agent && $.allAgent.find(e => e.id === scope.row.agent).name || '-' }}</template>
+        <template slot-scope="scope">{{
+          (scope.row.agent &&
+            $.allAgent.find((e) => e.id === scope.row.agent).name) ||
+          "-"
+        }}</template>
       </el-table-column>
     </el-table>
 
     <pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="listQuery.page"
       :limit.sync="listQuery.size"
@@ -182,7 +193,8 @@ export default {
         page: 1, // 当前页码
         size: 20, // 每页大小
 
-        operator: null,
+        sortProp: "",
+        sortOrder: "",
       },
     };
   },
@@ -191,9 +203,20 @@ export default {
     this.fetchData();
   },
   methods: {
+    sortChange(e) {
+      this.listQuery.sortProp = e.prop;
+      if (e.order === "ascending") {
+        this.listQuery.sortOrder = "asc";
+      } else if (e.order === "descending") {
+        this.listQuery.sortOrder = "desc";
+      } else {
+        this.listQuery.sortOrder = null;
+      }
+      this.fetchData();
+    },
     async fetchData() {
       this.listLoading = true;
-      const res = await getCardList(this.listQuery, this.re);
+      const res = await getCardList(this.listQuery);
       this.total = res.data.total;
       this.list = res.data.list;
       setTimeout(() => {

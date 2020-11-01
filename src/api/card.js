@@ -48,9 +48,11 @@ export function getInfo(data) {
 }
 
 // 卡片激活
-export function cardActive(data) {
+export function cardActive(business_code) {
   return request({
     url: "/card/cardActive",
-    data
+    data: {
+      business_code
+    }
   });
 }

@@ -4,7 +4,9 @@
     <el-card class="box-card">
       <div class="title">卡片操作</div>
       <el-row class="row">
-        <el-button type="primary">停机</el-button>
+        <el-button type="primary" @click="btnHandler('active')"
+          >开启实名权限</el-button
+        >
       </el-row>
     </el-card>
     <el-card class="box-card">
@@ -30,12 +32,21 @@
         <el-table-column prop="meal.name" label="套餐名称"></el-table-column>
 
         <el-table-column
-          v-for="(item, index) in info.meals && info.meals[0].tier"
+          v-for="(item, index) in info.meals &&
+          info.meals[0] &&
+          info.meals[0].tier"
           :key="index"
           :label="item.name + '成本价'"
-        >{{ item.cost }}</el-table-column>
+        >
+          <template slot-scope="scope">{{
+            scope.row.tier[index].cost
+          }}</template>
+        </el-table-column>
 
-        <el-table-column prop="meal.meal_price" label="套餐售价"></el-table-column>
+        <el-table-column
+          prop="meal.meal_price"
+          label="套餐售价"
+        ></el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -55,14 +66,21 @@ export default {
     this.fetchData();
   },
   methods: {
+    async btnHandler(type) {
+      if (type === "active") {
+        await cardActive(this.info.business_code);
+      }
+    },
     async fetchData() {
       const res = await getInfo({ id: this.id });
 
       res.data.meals = res.data.meals.map((e) => {
-        e.tier = JSON.parse(e.tier).map((t) => ({
-          ...t,
-          name: this.$.allAgent.find((e) => e.id == t.agent_id).name,
-        }));
+        if (e.tier) {
+          e.tier = JSON.parse(e.tier).map((t) => ({
+            ...t,
+            name: this.$.allAgent.find((e) => e.id == t.agent_id).name,
+          }));
+        }
 
         return e;
       });

@@ -29,7 +29,7 @@
         <el-input v-model="form.name" style="width: 500px;" class="filter-item" />
       </el-form-item>
       <el-form-item label="原价(元)">
-        <el-input v-model="form.orign_price" placeholder style="width: 500px;" class="filter-item" />
+        <el-input v-model="form.origin_price" placeholder style="width: 500px;" class="filter-item" />
       </el-form-item>
       <el-form-item label="套餐售价(元)">
         <el-input v-model="form.meal_price" placeholder style="width: 500px;" class="filter-item" />
